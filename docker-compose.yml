@@ -15,8 +15,9 @@ services:
       context: .
     volumes:
       - ./config:/usr/app/config
-      - ./.cache:/usr/app/.cache # for figo
       - ./export:/usr/app/export
+      - ./.cache:/root/Downloads # for figo
+      - ./.cache:/usr/app/.cache # for figo
     environment:
       - WEBDRIVER_URL=http://selenium-chrome:4444/wd/hub
     depends_on:
