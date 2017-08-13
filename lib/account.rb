@@ -1,6 +1,4 @@
 class Account
-  attr_accessor :dumper, :iban, :ynab_id, :username, :password, :csv_file
-
   def initialize(params = {})
     @dumper   = Dumper.get_dumper(params.fetch('dumper'))
     @iban     = normalize_iban(params.fetch('iban'))
