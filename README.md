@@ -18,7 +18,7 @@ _If you're someone from the YNAB-Team: please add a public api-endpoint for an e
 
 1. Install docker
 
-2. Create a `config.yml`
+2. Create a `config/config.yml`
 
 ```yaml
 ---
@@ -34,7 +34,7 @@ accounts:
     password: # password
 ```
 
-_Example: [`config.sample.yml`](#)_
+_Example: [`config/config.sample.yml`](#)_
 
 3. `docker-compose run ruby`
 

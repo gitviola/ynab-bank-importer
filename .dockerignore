@@ -1,5 +1,9 @@
 Dockerfile
 Dockerfile-rpi
+docker-compose.yml
+
+config
+config/config.yml
+
 .cache
 .export
-config.sample.yml
