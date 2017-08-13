@@ -4,7 +4,7 @@ class YNAB
 
     LOGIN_PAGE = 'https://app.youneedabudget.com/users/login'.freeze
 
-    attr_accessor :username, :password, :budget_id
+    attr_accessor :budget_id
 
     def initialize(params = {})
       @username = params.fetch('username')

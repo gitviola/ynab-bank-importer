@@ -29,15 +29,6 @@ class YNAB
         @payee = "Transfer : #{CASH_ACCOUNT_NAME}"
         @memo = "ATM withdrawal #{@memo}"
       end
-
-      # This below
-
-      # receiver_account = options.fetch(:receiver, nil)
-      # if receiver_account && @account_index.has_key?(receiver_account)
-      #   ynab_number = @account_index[receiver_account]
-      #   ynab_account_name = YNAB::ACCOUNTS[ynab_number][:name]
-      #   @payee = "Transfer : #{ynab_account_name}"
-      # end
     end
   end
 end
