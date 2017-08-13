@@ -1,6 +1,6 @@
 # Bank YNAB importer
 
-This is a ruby script that *pulls your transactions from your banks* and imports them into *You Need A Budget* (YNAB).
+This is a ruby script that **pulls your transactions from your banks** and imports them into **You Need A Budget** (YNAB).
 
 ## Supported banks
 
