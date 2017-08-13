@@ -34,7 +34,6 @@ class YNAB
       end
       file_input.send_keys account.export_file
 
-      puts File.exist?(account.export_file).inspect
       puts "Uploading #{account.export_file}"
 
       sleep 2
