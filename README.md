@@ -36,7 +36,7 @@ accounts:
 
 _Example: [`config/config.sample.yml`](#)_
 
-3. `docker-compose run ruby`
+3. `docker-compose build ruby && docker-compose run ruby`
 
 ## Dumpers
 
