@@ -60,6 +60,7 @@ _If you want to turn off this behavior add the option `force_download: true`._
 * Check if transaction is to or from any of the owner's accounts: set `payee` to `Transfer : %ACCOUNT NAME ON YNAB%` _(also make sure that this doesn't create duplicates)_
 * Make docker-container Raspberry Pi compatible so that it can run periodically.
 * BBVA: find out the Payee and Memo of the transaction
+* N26: option `skip_category` to not set the N26 category for that transaction _(useful if you have your own. Also YNAB auto-detects the category after a while)_
 * ! Not use selenium webdriver anymore _(rather use APIs)_
 
 # Technical details on how it works
