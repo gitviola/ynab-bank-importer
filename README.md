@@ -57,6 +57,7 @@ _If you want to turn off this behavior add the option `force_download: true`._
 
 ## Wishlist
 
+- [ ] Only fetch transactions from specific date on
 - [ ] Check if transaction is to or from any of the owner's accounts: set `payee` to `Transfer : %ACCOUNT NAME ON YNAB%` _(also make sure that this doesn't create duplicates)_
 - [ ] Make docker-container Raspberry Pi compatible so that it can run periodically.
 - [ ] BBVA: find out the Payee and Memo of the transaction
