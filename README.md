@@ -1,4 +1,4 @@
-# Bank YNAB importer
+# Bank YNAB importer ![https://hub.docker.com/r/schurig/ynab-bank-importer/](https://img.shields.io/docker/pulls/schurig/ynab-bank-importer.svg) ![https://hub.docker.com/r/schurig/ynab-bank-importer/builds/](https://img.shields.io/docker/build/schurig/ynab-bank-importer.svg)
 
 This is a ruby script that **pulls your transactions from your banks** and imports them into **You Need A Budget** (YNAB).
 
