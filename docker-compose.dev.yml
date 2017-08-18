@@ -13,7 +13,6 @@ services:
     container_name: ruby
     build:
       context: .
-      dockerfile: docker/Dockerfile
     volumes:
       - ./config.yml:/usr/app/config.yml
       - ./export:/usr/app/export
