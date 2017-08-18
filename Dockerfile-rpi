@@ -2,17 +2,19 @@ FROM knjcode/rpi-ruby
 
 MAINTAINER Martin Schurig <martin@schurig.pw>
 
+RUN apt-get update && \
+    apt-get -y install \
+      gcc mono-mcs build-essential \
+      locales && \
+    rm -rf /var/lib/apt/lists/*
+
 # Set the locale
-RUN apt-get clean && apt-get update && apt-get install -y locales
 RUN locale-gen en_US.UTF-8 && \
     localedef -i en_US -f UTF-8 en_US.UTF-8 && \
     update-locale LANG=en_US.UTF-8
 ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8
-
-# RUN apt-get install -y texinfo build-essential openjdk-7-jdk ant git
-# RUN git clone https://github.com/jnr/jffi.git && cd jffi/ && ant jar
 
 RUN mkdir /usr/app
 WORKDIR /usr/app
