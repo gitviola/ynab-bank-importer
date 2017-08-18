@@ -27,7 +27,7 @@ class Dumper
 
     def to_ynab_format(transaction)
       YNAB::Transaction.new(
-        date: to_date(transaction['createdTS']),
+        date: to_date(transaction['visibleTS']),
         payee: [transaction['merchantName'], transaction['partnerName']].join(' ').strip,
         category: @categories[transaction['category']],
         memo: [transaction['referenceText'], transaction['merchantCity']].join(' ').strip,
