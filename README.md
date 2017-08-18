@@ -18,7 +18,7 @@ _If you're someone from the YNAB-Team: please add a public api-endpoint for an e
 
 1. Install docker and docker-compose
 
-2. Create a `docker-compose.yml` file with [this content](https://github.com/schurig/ynab-bank-importer/blob/master/docker-compose.yml)
+2. Create a `docker-compose.yml` file with [this content](https://raw.githubusercontent.com/schurig/ynab-bank-importer/master/docker-compose.yml)
 
 3. Create a `config.yml`
 
