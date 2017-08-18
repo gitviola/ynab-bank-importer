@@ -2,7 +2,7 @@ require 'yaml'
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |f| require f }
 Dir[File.join('.', 'lib/**/*.rb')].each { |f| require f }
-config = YAML.load_file('config/config.yml')
+config = YAML.load_file(File.join('.', 'config.yml'))
 
 YNAB.cleanup
 

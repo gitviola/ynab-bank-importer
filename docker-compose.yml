@@ -14,7 +14,7 @@ services:
     build:
       context: .
     volumes:
-      - ./config:/usr/app/config
+      - ./config.yml:/usr/app/config.yml
       - ./export:/usr/app/export
       - ./.cache:/root/Downloads # for figo
       - ./.cache:/usr/app/.cache # for figo
