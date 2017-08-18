@@ -59,15 +59,6 @@ You need to get a [figo.io](https://figo.io) account first.
 Since there is a high chance that you use the `:figo` dumper more than once, all transactions from figo will be downloaded once and be cached thoughout the run.
 _If you want to turn off this behavior add the option `force_download: true`._
 
-## Wishlist
-
-- [ ] Only fetch transactions from specific date on
-- [ ] Check if transaction is to or from any of the owner's accounts: set `payee` to `Transfer : %ACCOUNT NAME ON YNAB%` _(also make sure that this doesn't create duplicates)_
-- [ ] Make docker-container Raspberry Pi compatible so that it can run periodically.
-- [ ] BBVA: find out the Payee and Memo of the transaction
-- [ ] N26: option `skip_category` to not set the N26 category for that transaction _(useful if you have your own. Also YNAB auto-detects the category after a while)_
-- [ ] **!!** Not use selenium webdriver anymore _(rather use APIs)_
-
 # Technical details on how it works
 
 On [app.youneedabudget.com](https://app.youneedabudget.com) you can upload a `.csv` file with your transactions. The structure looks like this:
