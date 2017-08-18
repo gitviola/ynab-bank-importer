@@ -11,7 +11,9 @@ services:
       - ./export:/usr/app/export
   ruby:
     container_name: ruby
-    image: schurig/ynab-bank-importer:latest
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     volumes:
       - ./config.yml:/usr/app/config.yml
       - ./export:/usr/app/export

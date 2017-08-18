@@ -16,9 +16,13 @@ _If you're someone from the YNAB-Team: please add a public api-endpoint for an e
 
 ## Usage
 
-1. Install docker
+1. Install docker and docker-compose
 
-2. Create a `config.yml`
+2. Create `docker-compose.yml`
+
+with this content: [`docker-compose.yml`](https://github.com/schurig/ynab-bank-importer/blob/master/docker-compose.yml)
+
+3. Create a `config.yml`
 
 ```yaml
 ---
@@ -34,9 +38,9 @@ accounts:
     password: # password
 ```
 
-_Example: [`config/config.sample.yml`](#)_
+_Example: [`config.sample.yml`](https://github.com/schurig/ynab-bank-importer/blob/master/config.sample.yml)_
 
-3. `docker-compose build ruby && docker-compose run ruby`
+3. `docker-compose pull ruby && docker-compose run ruby`
 
 ## Dumpers
 
