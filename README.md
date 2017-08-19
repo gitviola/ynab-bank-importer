@@ -67,6 +67,7 @@ You need to get a [figo.io](https://figo.io) account first.
 * `force_download` _(default: false)_
 
 > Since there is a high chance that you use the `:figo` dumper more than once, all transactions from figo will be downloaded once and be cached thoughout the run.
+>
 > _If you want to turn off this behavior add the option `force_download: true`._
 
 # Technical details on how it works
