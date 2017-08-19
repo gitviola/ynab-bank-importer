@@ -1,17 +1,20 @@
 class Account
   attr_accessor :dumper, :iban, :ynab_id, :csv_file
-  
+
   def initialize(params = {})
-    @dumper   = Dumper.get_dumper(params.fetch('dumper'))
-    @iban     = normalize_iban(params.fetch('iban'))
-    @ynab_id  = params.fetch('ynab_id')
-    @username = params.fetch('username')
-    @password = params.fetch('password')
+    params = symbolize_keys(params)
+
+    @dumper   = Dumper.get_dumper(params.fetch(:dumper))
+    @iban     = normalize_iban(params.fetch(:iban))
+    @ynab_id  = params.fetch(:ynab_id)
+
+    params[:iban] = @iban
+    @params = params
     @transactions = nil
   end
 
   def fetch_transactions
-    dumper = @dumper.new(username: @username, password: @password, iban: @iban)
+    dumper = @dumper.new(@params)
     @transactions = dumper.fetch_transactions
   end
 
@@ -34,5 +37,9 @@ class Account
 
   def normalize_iban(iban)
     iban.delete(' ')
+  end
+
+  def symbolize_keys(hash)
+    hash.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
   end
 end

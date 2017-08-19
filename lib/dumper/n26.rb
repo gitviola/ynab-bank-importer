@@ -11,6 +11,7 @@ class Dumper
       @username = params.fetch(:username)
       @password = params.fetch(:password)
       @iban     = params.fetch(:iban)
+      @set_category = params.fetch(:set_category, false)
       @categories = {}
     end
 
@@ -29,7 +30,7 @@ class Dumper
       YNAB::Transaction.new(
         date: to_date(transaction['visibleTS']),
         payee: [transaction['merchantName'], transaction['partnerName']].join(' ').strip,
-        category: @categories[transaction['category']],
+        category: transaction_category(transaction),
         memo: [transaction['referenceText'], transaction['merchantCity']].join(' ').strip,
         amount: transaction['amount'],
         is_withdrawal: WITHDRAWAL_CATEGORIES.include?(transaction['category'])
@@ -43,6 +44,11 @@ class Dumper
     def to_date(string)
       string_date = Time.at(string / 1000).strftime('%Y-%m-%d')
       Date.parse(string_date)
+    end
+
+    def transaction_category(transaction)
+      nil unless @set_category
+      @categories[transaction['category']]
     end
   end
 end
