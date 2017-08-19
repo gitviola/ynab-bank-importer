@@ -5,10 +5,10 @@ class YNAB
     CASH_ACCOUNT_NAME = 'Cash'.freeze
 
     def initialize(options = {})
-      @account_index = {}
-      # build_account_index
+      @cash_account_name = Settings.all['ynab'].fetch('cash_account_name', nil)
+      @is_withdrawal = options.fetch(:is_withdrawal, false)
 
-      set_attributes(options)
+      assign_attributes(options)
     end
 
     def to_a
@@ -17,7 +17,7 @@ class YNAB
 
     private
 
-    def set_attributes(options = {})
+    def assign_attributes(options = {})
       @date = options.fetch(:date)
       @payee = options.fetch(:payee)
       @category = options.fetch(:category, nil)
@@ -25,10 +25,12 @@ class YNAB
       @outflow = ''
       @inflow = options.fetch(:amount)
 
-      if options.fetch(:is_withdrawal, false)
-        @payee = "Transfer : #{CASH_ACCOUNT_NAME}"
-        @memo = "ATM withdrawal #{@memo}"
-      end
+      detect_withdrawal if @cash_account_name && @is_withdrawal
+    end
+
+    def detect_withdrawal
+      @payee = "Transfer : #{@cash_account_name}"
+      @memo = "ATM withdrawal #{@memo}"
     end
   end
 end

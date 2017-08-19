@@ -47,7 +47,7 @@ class Dumper
     end
 
     def transaction_category(transaction)
-      nil unless @set_category
+      return nil unless @set_category
       @categories[transaction['category']]
     end
   end

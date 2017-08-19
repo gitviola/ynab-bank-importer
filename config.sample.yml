@@ -3,6 +3,8 @@ ynab:
   username: # YNAB username
   password: # YNAB password
   budget_id: # the first hash in the url when you open your budget
+  cash_account_name: 'Cash' # if set that it creates transactions
+                            # to your cash account if withdrawal is detected
 accounts:
   - dumper: :figo
     iban: # iban of your account

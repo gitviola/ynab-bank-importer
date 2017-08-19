@@ -30,6 +30,7 @@ ynab:
   username: # email
   password: # password
   budget_id: # budget_id
+  cash_account_name: # optional
 accounts:
   - dumper: :n26
     iban: # iban of your n26
