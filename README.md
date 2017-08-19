@@ -50,8 +50,9 @@ _Example: [`config.sample.yml`](https://github.com/schurig/ynab-bank-importer/bl
 
 #### Options
 
-**`set_category` _(default: false)_**
-Set the transaction category to the N26 category. Only makes sense if you have the N26 categories set up in your YNAB.
+* `set_category` _(default: false)_
+
+> Set the transaction category to the N26 category. Only makes sense if you have the N26 categories set up in your YNAB.
 
 ### BBVA `:bbva`
 
@@ -63,8 +64,10 @@ You need to get a [figo.io](https://figo.io) account first.
 
 #### Options
 
-Since there is a high chance that you use the `:figo` dumper more than once, all transactions from figo will be downloaded once and be cached thoughout the run.
-_If you want to turn off this behavior add the option `force_download: true`._
+* `force_download` _(default: false)_
+
+> Since there is a high chance that you use the `:figo` dumper more than once, all transactions from figo will be downloaded once and be cached thoughout the run.
+> _If you want to turn off this behavior add the option `force_download: true`._
 
 # Technical details on how it works
 
