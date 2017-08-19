@@ -8,10 +8,10 @@ class Dumper
     ].freeze
 
     def initialize(params = {})
-      @username = params.fetch(:username)
-      @password = params.fetch(:password)
-      @iban     = params.fetch(:iban)
-      @set_category = params.fetch(:set_category, false)
+      @username = params.fetch('username')
+      @password = params.fetch('password')
+      @iban     = params.fetch('iban')
+      @set_category = params.fetch('set_category', false)
       @categories = {}
     end
 

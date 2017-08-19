@@ -7,10 +7,10 @@ class Dumper
     WEBSITE = 'https://home.figo.me'.freeze
 
     def initialize(params = {})
-      @username = params.fetch(:username)
-      @password = params.fetch(:password)
-      @iban     = params.fetch(:iban)
-      @force_download = params.fetch(:force_download, false)
+      @username = params.fetch('username')
+      @password = params.fetch('password')
+      @iban     = params.fetch('iban')
+      @force_download = params.fetch('force_download', false)
     end
 
     def fetch_transactions

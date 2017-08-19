@@ -2,13 +2,12 @@ require 'yaml'
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |f| require f }
 Dir[File.join('.', 'lib/**/*.rb')].each { |f| require f }
-config = YAML.load_file(File.join('.', 'config.yml'))
 
 YNAB.cleanup
 
-ynab_user = YNAB::User.new(config['ynab'])
+ynab_user = YNAB::User.new(Settings.all['ynab'])
 
-config['accounts'].each do |a|
+Settings.all['accounts'].each do |a|
   account = Account.new(a)
   account.fetch_transactions
   account.export_transactions
