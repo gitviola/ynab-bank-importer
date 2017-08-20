@@ -72,7 +72,7 @@ class Dumper
       wait.until { webdriver.execute_script('return window.location.pathname') == '/transactions' }
       webdriver.get "#{WEBSITE}/export/transactions?format=csv&account_id=&filter="
 
-      sleep 2
+      sleep 10
 
       webdriver.navigate.to WEBSITE
       selenium.stop
