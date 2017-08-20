@@ -1,3 +1,4 @@
 export
 .cache
+last_imported
 config.yml

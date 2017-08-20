@@ -15,6 +15,7 @@ services:
     volumes:
       - ./config.yml:/usr/app/config.yml
       - ./export:/usr/app/export
+      - ./last_imported:/usr/app/last_imported
       - ./.cache:/root/Downloads # for figo
       - ./.cache:/usr/app/.cache # for figo
     environment:
