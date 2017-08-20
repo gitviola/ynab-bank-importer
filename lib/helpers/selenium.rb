@@ -4,7 +4,8 @@ module Helpers
 
     # There is an issue with chrome, the setting for the download_path
     # doesn't work. That's why this is set to the default download path.
-    DOWNLOAD_DIR = "#{Dir.home}/Downloads".freeze
+    # DOWNLOAD_DIR = "#{Dir.home}/Downloads".freeze
+    DOWNLOAD_DIR = '.cache'.freeze
 
     attr_reader :webdriver
 
