@@ -36,6 +36,7 @@ class Dumper
       YNAB::Transaction.new(
         date: Date.parse(transaction[0]),
         payee: transaction[6],
+        payee_iban: transaction[7],
         category: nil,
         memo: transaction[11],
         amount: transaction[13],

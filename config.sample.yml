@@ -9,6 +9,7 @@ accounts:
   - dumper: :figo
     iban: # iban of your account
     ynab_id: # last hash in the url when you click on the account in YNAB
+    ynab_name: # the exact name how you named that account in YNAB
     username: # figo username
     password: # figo password
     force_download: # default: false
@@ -18,6 +19,7 @@ accounts:
   - dumper: :n26
     iban: # n26 iban
     ynab_id: # last hash in the url when you click on the account in YNAB
+    ynab_name: # the exact name how you named that account in YNAB
     username: # n26 username
     password: # n26 password
     set_category: false # default: false, sets the N26 category name as category

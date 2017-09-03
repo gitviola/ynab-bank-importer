@@ -34,7 +34,8 @@ ynab:
 accounts:
   - dumper: :n26
     iban: # iban of your n26
-    ynab_id: # account id on YNAB
+    ynab_id: # account id in YNAB
+    ynab_name: # account name in YNAB
     username: # email
     password: # password
 ```

@@ -20,17 +20,33 @@ class YNAB
     def assign_attributes(options = {})
       @date = options.fetch(:date)
       @payee = options.fetch(:payee)
+      @payee_iban = options.fetch(:payee_iban, nil)
       @category = options.fetch(:category, nil)
       @memo = options.fetch(:memo, nil)
       @outflow = ''
       @inflow = options.fetch(:amount)
 
-      detect_withdrawal if @cash_account_name && @is_withdrawal
+      set_withdrawal if @cash_account_name && @is_withdrawal
+      detect_internal_transfer if @payee_iban
     end
 
-    def detect_withdrawal
+    def set_withdrawal
       @payee = "Transfer : #{@cash_account_name}"
       @memo = "ATM withdrawal #{@memo}"
+    end
+
+    def detect_internal_transfer
+      Settings.all['accounts'].each do |account|
+        next unless account['ynab_name']
+        if account['iban'] == normalize_iban(@payee_iban)
+          @payee = "Transfer : #{account['ynab_name']}"
+          break
+        end
+      end
+    end
+
+    def normalize_iban(iban)
+      iban.delete(' ')
     end
   end
 end
