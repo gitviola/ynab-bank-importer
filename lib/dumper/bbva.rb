@@ -24,9 +24,14 @@ class Dumper
       YNAB::Transaction.new(
         date: transaction.effective_date,
         payee: 'N/A',
+        is_withdrawal: withdrawal?(transaction),
         memo: transaction.description,
         amount: transaction.amount
       )
+    end
+
+    def withdrawal?(transaction)
+      transaction.description == 'Cajero BBVA'
     end
 
     def normalize_iban(iban)
