@@ -20,7 +20,7 @@ class Dumper
       CSV.foreach(File.path(cache_file), headers: true) do |row|
         account_number = row[3]
 
-        # last 10 degets of german ibans are the account number
+        # last 10 characters of german ibans are the account number
         if account_number == @iban.last(10)
           transaction = to_ynab_format(row)
           transactions.push(transaction)
