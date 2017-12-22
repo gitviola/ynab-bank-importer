@@ -11,6 +11,8 @@ ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8
 
+RUN git clone https://github.com/playtestcloud/ruby_fints.git && cd ruby_fints && gem build ruby_fints.gemspec && gem install ruby_fints-0.0.1.gem
+
 RUN mkdir /usr/app
 WORKDIR /usr/app
 
