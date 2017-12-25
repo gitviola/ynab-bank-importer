@@ -126,5 +126,5 @@ I'm not that into hardware. It would be super awesome if someone could help maki
 
 # Thanks
 
-* [@mkilling](https://github.com/mkilling) for writing the FinTS ruby lib that I'm using & helping me fixing a bug
+* [@mkilling](https://github.com/mkilling) for writing the [FinTS ruby lib](https://github.com/playtestcloud/ruby_fints) that I'm using & helping me fixing a bug
 * you for reading this
