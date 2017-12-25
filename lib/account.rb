@@ -6,7 +6,7 @@ class Account
     @iban     = normalize_iban(params.fetch('iban'))
     @ynab_id  = params.fetch('ynab_id')
 
-    params['iban'] = @iban
+    params['iban'] = @iban # overwrite with normalized iban
     @params = params
     @transactions = nil
   end

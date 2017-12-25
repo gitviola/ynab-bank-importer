@@ -1,20 +1,18 @@
 class Dumper
-  class FintsDkb < Dumper
+  class Fints < Dumper
     require 'ruby_fints'
-
-    ENDPOINT  = 'https://banking-dkb.s-fints-pt-dkb.de/fints30'.freeze
-    BLZ       = '12030000'.freeze
-    SEPERATOR = '?'.freeze
 
     def initialize(params = {})
       @username = params.fetch('username')
       @password = params.fetch('password')
       @iban     = params.fetch('iban')
+      @endpoint = params.fetch('fints_endpoint')
+      @blz      = params.fetch('fints_blz')
     end
 
     def fetch_transactions
       FinTS::Client.logger.level = Logger::WARN
-      client = FinTS::PinTanClient.new(BLZ, @username, @password, ENDPOINT)
+      client = FinTS::PinTanClient.new(@blz, @username, @password, @endpoint)
 
       account = client.get_sepa_accounts.find { |a| a[:iban] == @iban }
       statement = client.get_statement(account, Date.today - 35, Date.today)
@@ -39,10 +37,12 @@ class Dumper
     def parse_transaction_at(position, transaction)
       # I don't know who invented this structure but I hope
       # the responsible people know how inconvenient it is.
-      array = transaction.details.source.split("#{SEPERATOR}#{position}")
+
+      seperator = transaction.details.seperator
+      array = transaction.details.source.split("#{seperator}#{position}")
       return nil if array.size < 2
 
-      array.last.split(SEPERATOR).first
+      array.last.split(seperator).first
     end
 
     def amount(transaction)
