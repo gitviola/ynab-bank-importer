@@ -4,7 +4,7 @@ This is a ruby script that **pulls your transactions from your banks** and impor
 
 ## Supported banks
 
-* Most German and Austrian banks _(all banks that [figo.io](https://figo.io or that implement the FinTS standard) supports)_
+* Most German and Austrian banks _(all banks that [figo.io](https://figo.io) or that implement the FinTS standard supports)_
 * BBVA Spain _(private accounts only)_
 * N26
 
