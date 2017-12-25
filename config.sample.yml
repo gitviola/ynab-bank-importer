@@ -6,6 +6,15 @@ ynab:
   cash_account_name: 'Cash' # if set that it creates transactions
                             # to your cash account if withdrawal is detected
 accounts:
+  - dumper: :fints
+    iban: # iban of your account
+    ynab_id: # last hash in the url when you click on the account in YNAB
+    ynab_name: # the exact name how you named that account in YNAB
+    username: # online banking username / alias
+    password: # online banking PIN (NOT! the pin of your bank card!)
+    fints_blz: # Your bank's code / Bankleitzahl
+    fints_endpoint: # can be found here: https://www.hbci-zka.de/institute/institut_auswahl.htm
+                    # Use the PIN/TAN URL from the link above
   - dumper: :figo
     iban: # iban of your account
     ynab_id: # last hash in the url when you click on the account in YNAB

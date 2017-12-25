@@ -7,6 +7,8 @@ class Dumper
       Dumper::N26
     when :figo
       Dumper::Figo
+    when :fints
+      Dumper::Fints
     else
       raise "Dumper \"#{name}\" not supported."
     end

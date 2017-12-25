@@ -6,7 +6,7 @@ class Account
     @iban     = normalize_iban(params.fetch('iban'))
     @ynab_id  = params.fetch('ynab_id')
 
-    params['iban'] = @iban
+    params['iban'] = @iban # overwrite with normalized iban
     @params = params
     @transactions = nil
   end
@@ -22,7 +22,7 @@ class Account
 
     FileUtils.mkdir_p YNAB::EXPORT_DIR
     CSV.open(export_file, 'wb') do |csv|
-      csv << %w[Date Payee Category Memo Outflow Inflow]
+      csv << %w(Date Payee Category Memo Outflow Inflow)
       @transactions.each { |transaction| csv << transaction.to_a }
     end
   end

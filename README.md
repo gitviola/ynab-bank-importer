@@ -46,9 +46,33 @@ _Example: [`config.sample.yml`](https://github.com/schurig/ynab-bank-importer/bl
 
 ## Dumpers
 
+### FinTS / HBCI
+
+The FinTS / HBCI standard is mainly implemented by German banks.
+
+#### Options
+
+* `fints_endpoint` _(required)_
+
+> The endpoint is the url which is needed to communicate with your bank to fetch the recent transactions. You can find it out [here](https://www.hbci-zka.de/institute/institut_auswahl.htm) (use the PIN/TAN URL from the link).
+
+* `fints_blz` _(required)_
+
+> This is the routing number / Bankleitzahl of your bank. You can find it out on the bank's website.
+
+#### Notes
+
+* Currently tested with **DKB** and **ING-DiBa**.
+* **!!! If you change your online banking password** please don't run the importer with the wrong password. Your bank might lock your account if there are too many failed login attempts.
+* It currently fetches the transactions from the last 35 days. Please open an issue or PR if you want to change this.
+
 ### N26 `:n26`
 
 `memo` is a combination of the reference text and the city of the transaction provided by N26.
+
+#### Note
+
+* It currently only fetches the last 100 transactions. Please open an issue or PR if you want to change this.
 
 #### Options
 
@@ -99,3 +123,8 @@ ____________________
 Support and contriubution of any kind is always welcome!!!
 
 I'm not that into hardware. It would be super awesome if someone could help making this work on Raspbian. I already tried but building the docker container fails _(Dockerfile-rpi)_.
+
+# Thanks
+
+* [@mkilling][https://github.com/mkilling] for writing the FinTS ruby lib that I'm using
+* you for reading this
