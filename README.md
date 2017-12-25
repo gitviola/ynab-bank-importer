@@ -48,7 +48,7 @@ _Example: [`config.sample.yml`](https://github.com/schurig/ynab-bank-importer/bl
 
 ### FinTS / HBCI
 
-The FinTS / HBCI standard is mainly used by German banks.
+The FinTS / HBCI standard is mainly implemented by German banks.
 
 #### Options
 
@@ -123,3 +123,8 @@ ____________________
 Support and contriubution of any kind is always welcome!!!
 
 I'm not that into hardware. It would be super awesome if someone could help making this work on Raspbian. I already tried but building the docker container fails _(Dockerfile-rpi)_.
+
+# Thanks
+
+* [@mkilling][https://github.com/mkilling] for writing the FinTS ruby lib that I'm using
+* you for reading this
