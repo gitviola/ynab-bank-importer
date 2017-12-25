@@ -46,7 +46,7 @@ _Example: [`config.sample.yml`](https://github.com/schurig/ynab-bank-importer/bl
 
 ## Dumpers
 
-### FinTS / HBCI
+### FinTS / HBCI `:fints`
 
 The FinTS / HBCI standard is mainly implemented by German banks.
 
