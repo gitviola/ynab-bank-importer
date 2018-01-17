@@ -24,7 +24,7 @@ class Dumper
 
     def to_ynab_format(transaction)
       YNAB::Transaction.new(
-        date: transaction.date,
+        date: transaction.entry_date,
         payee: parse_transaction_at(32, transaction),
         payee_iban: parse_transaction_at(31, transaction),
         category: nil,
