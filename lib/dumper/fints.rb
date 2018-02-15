@@ -1,8 +1,10 @@
 class Dumper
   class Fints < Dumper
     require 'ruby_fints'
+    require 'digest/md5'
 
     def initialize(params = {})
+      @ynab_id  = params.fetch('ynab_id')
       @username = params.fetch('username')
       @password = params.fetch('password')
       @iban     = params.fetch('iban')
@@ -17,21 +19,72 @@ class Dumper
       account = client.get_sepa_accounts.find { |a| a[:iban] == @iban }
       statement = client.get_statement(account, Date.today - 35, Date.today)
 
-      statement.map { |t| to_ynab_format(t) }
+      statement.map { |t| to_ynab_transaction(t) }
     end
 
     private
 
-    def to_ynab_format(transaction)
-      YNAB::Transaction.new(
-        date: transaction.entry_date,
-        payee: parse_transaction_at(32, transaction),
-        payee_iban: parse_transaction_at(31, transaction),
-        category: nil,
-        memo: parse_transaction_at(20, transaction),
-        amount: amount(transaction),
-        is_withdrawal: withdrawal?(transaction)
-      )
+    def account_id
+      @ynab_id
+    end
+
+    def date(transaction)
+      transaction.entry_date
+    end
+
+    def payee_name(transaction)
+      parse_transaction_at(32, transaction)
+    end
+
+    def payee_iban(transaction)
+      parse_transaction_at(31, transaction)
+    end
+
+    def memo(transaction)
+      parse_transaction_at(20, transaction)
+    end
+
+    def amount(transaction)
+      if transaction.funds_code == 'D'
+        amount = transaction.amount
+      else
+        amount = "-#{transaction.amount}"
+      end
+
+      amount.to_i * 1000
+    end
+
+    def withdrawal?(transaction)
+      memo = memo(transaction)
+      return nil unless memo
+
+      memo.include?('Atm') || memo.include?('Bargeld')
+    end
+
+    def import_id(transaction)
+      data = [
+        transaction_type(transaction),
+        transaction.entry_date,
+        transaction.amount,
+        transaction.funds_code,
+        transaction.reference,
+        payee_iban(transaction),
+        payee_name(transaction),
+        @iban
+      ].join
+
+      Digest::MD5.hexdigest(data)
+    end
+
+    def transaction_type(transaction)
+      # Changing the result of this method will
+      # change the hash returned by the `import_id` which
+      # could will result in duplicated entries.
+
+      str = parse_transaction_at(0, transaction).encode("iso-8859-1")
+                                                .force_encoding("utf-8")
+      return nil unless str
+      str[1..-1]
     end
 
     def parse_transaction_at(position, transaction)
@@ -45,16 +98,5 @@ class Dumper
       array.last.split(seperator).first
     end
 
-    def amount(transaction)
-      return "-#{transaction.amount}" if transaction.funds_code == 'D'
-      transaction.amount.to_s
-    end
-
-    def withdrawal?(transaction)
-      memo = parse_transaction_at(20, transaction)
-      return nil unless memo
-
-      memo.include?('Atm') || memo.include?('Bargeld')
-    end
   end
 end

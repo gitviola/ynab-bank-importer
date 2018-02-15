@@ -4,6 +4,7 @@ class Dumper
     require 'bankscrap-bbva'
 
     def initialize(params = {})
+      @ynab_id  = params.fetch('ynab_id')
       @username = params.fetch('username')
       @password = params.fetch('password')
       @iban     = params.fetch('iban')

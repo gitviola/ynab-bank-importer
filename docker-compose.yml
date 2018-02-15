@@ -1,25 +1,7 @@
 version: "2"
 services:
-  selenium-chrome:
-    image: selenium/standalone-chrome
-    shm_size: 2g
-    ports:
-      - "4444:4444"
-    volumes:
-      - /dev/shm:/dev/shm # something for shared memory so chrome has enough
-      - ./.cache:/home/seluser/Downloads # for figo
-      - ./export:/usr/app/export
-  ruby:
-    container_name: ruby
+  importer:
     image: schurig/ynab-bank-importer:latest
     volumes:
       - ./config.yml:/usr/app/config.yml
-      - ./export:/usr/app/export
-      - ./last_imported:/usr/app/last_imported
-      - ./.cache:/root/Downloads # for figo
-      - ./.cache:/usr/app/.cache # for figo
-    environment:
-      - WEBDRIVER_URL=http://selenium-chrome:4444/wd/hub
-    depends_on:
-      - selenium-chrome
     command: "ruby /usr/app/run.rb"

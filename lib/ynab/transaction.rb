@@ -1,52 +1,28 @@
 class YNAB
   class Transaction
-    attr_reader :date, :payee, :category, :memo, :inflow, :outflow
-
-    CASH_ACCOUNT_NAME = 'Cash'.freeze
+    attr_reader :account_id, :date, :amount, :payee_id, :payee_name,
+                :category_id, :memo, :import_id
 
     def initialize(options = {})
-      @cash_account_name = Settings.all['ynab'].fetch('cash_account_name', nil)
-      @is_withdrawal = options.fetch(:is_withdrawal, false)
-
       assign_attributes(options)
-    end
-
-    def to_a
-      [date.strftime('%Y-%m-%d'), payee, category, memo, outflow, inflow]
     end
 
     private
 
     def assign_attributes(options = {})
-      @date = options.fetch(:date)
-      @payee = options.fetch(:payee)
-      @payee_iban = options.fetch(:payee_iban, nil)
-      @category = options.fetch(:category, nil)
+      @account_id = options.fetch(:account_id)
+      @date = date(options)
+      @amount = options.fetch(:amount)
+      @payee_id = options.fetch(:payee_id, nil)
+      @payee_name = options.fetch(:payee_name, nil)
+      @category_id = options.fetch(:category_id, nil)
       @memo = options.fetch(:memo, nil)
-      @outflow = ''
-      @inflow = options.fetch(:amount)
-
-      set_withdrawal if @cash_account_name && @is_withdrawal
-      detect_internal_transfer if @payee_iban
+      @import_id = options.fetch(:import_id)
+      @cleared = options.fetch(:cleared)
     end
 
-    def set_withdrawal
-      @payee = "Transfer : #{@cash_account_name}"
-      @memo = "ATM withdrawal #{@memo}"
-    end
-
-    def detect_internal_transfer
-      Settings.all['accounts'].each do |account|
-        next unless account['ynab_name']
-        if account['iban'] == normalize_iban(@payee_iban)
-          @payee = "Transfer : #{account['ynab_name']}"
-          break
-        end
-      end
-    end
-
-    def normalize_iban(iban)
-      iban.delete(' ')
+    def date(options)
+      options.fetch(:date).strftime('%Y-%m-%d')
     end
   end
 end

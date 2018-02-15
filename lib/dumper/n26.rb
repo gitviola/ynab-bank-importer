@@ -8,6 +8,7 @@ class Dumper
     ].freeze
 
     def initialize(params = {})
+      @ynab_id  = params.fetch('ynab_id')
       @username = params.fetch('username')
       @password = params.fetch('password')
       @iban     = params.fetch('iban')
@@ -21,34 +22,47 @@ class Dumper
         @categories[category['id']] = category['name']
       end
 
-      client.transactions(count: 100).map { |t| to_ynab_format(t) }
+      client.transactions(count: 100).map { |t| to_ynab_transaction(t) }
     end
 
     private
 
-    def to_ynab_format(transaction)
-      YNAB::Transaction.new(
-        date: to_date(transaction['visibleTS']),
-        payee: [transaction['merchantName'], transaction['partnerName']].join(' ').strip,
-        category: transaction_category(transaction),
-        memo: [transaction['referenceText'], transaction['merchantCity']].join(' ').strip,
-        amount: transaction['amount'],
-        is_withdrawal: WITHDRAWAL_CATEGORIES.include?(transaction['category'])
-      )
+    def account_id
+      @ynab_id
     end
 
-    def normalize_iban(iban)
-      iban.delete(' ')
-    end
-
-    def to_date(string)
-      string_date = Time.at(string / 1000).strftime('%Y-%m-%d')
+    def date(transaction)
+      string_date = Time.at(transaction['visibleTS'] / 1000).strftime('%Y-%m-%d')
       Date.parse(string_date)
     end
 
-    def transaction_category(transaction)
+    def payee_name(transaction)
+      [transaction['merchantName'], transaction['partnerName']].join(' ').strip
+    end
+
+    def payee_iban(transaction)
+      nil
+    end
+
+    def category_name(transaction)
       return nil unless @set_category
       @categories[transaction['category']]
+    end
+
+    def memo(transaction)
+      [transaction['referenceText'], transaction['merchantCity']].join(' ').strip
+    end
+
+    def amount(transaction)
+      transaction['amount'].to_i * 1000
+    end
+
+    def withdrawal?(transaction)
+      WITHDRAWAL_CATEGORIES.include?(transaction['category'])
+    end
+
+    def import_id(transaction)
+      transaction['id']
     end
   end
 end

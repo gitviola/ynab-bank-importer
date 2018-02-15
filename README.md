@@ -4,7 +4,7 @@ This is a ruby script that **pulls your transactions from your banks** and impor
 
 ## Supported banks
 
-* Most German and Austrian banks _(all banks that [figo.io](https://figo.io) or that implement the FinTS standard)_
+* Most German and Austrian banks _(all banks that implement the FinTS standard)_
 * BBVA Spain _(private accounts only)_
 * N26
 
@@ -27,15 +27,13 @@ _If you're someone from the YNAB-Team: please add a public api-endpoint for an e
 ```yaml
 ---
 ynab:
-  username: # email
-  password: # password
+  access_token: # ynab access token
   budget_id: # budget_id
-  cash_account_name: # optional
+  cash_account_id: # optional
 accounts:
   - dumper: :n26
     iban: # iban of your n26
     ynab_id: # account id in YNAB
-    ynab_name: # account name in YNAB
     username: # email
     password: # password
 ```
@@ -83,18 +81,6 @@ The FinTS / HBCI standard is mainly implemented by German banks.
 ### BBVA `:bbva`
 
 The field `payee` will be `N/A` because we currently don't get the payee name.
-
-### Figo `:figo`
-
-You need to get a [figo.io](https://figo.io) account first.
-
-#### Options
-
-* `force_download` _(default: false)_
-
-> Since there is a high chance that you use the `:figo` dumper more than once, all transactions from figo will be downloaded once and be cached thoughout the run.
->
-> _If you want to turn off this behavior add the option `force_download: true`._
 
 # Technical details on how it works
 
