@@ -41,7 +41,7 @@ class Dumper
     end
 
     def payee_iban(transaction)
-      nil
+      transaction['partnerIban']
     end
 
     def category_name(transaction)
@@ -54,7 +54,7 @@ class Dumper
     end
 
     def amount(transaction)
-      transaction['amount'].to_i * 1000
+      (transaction['amount'].to_f * 1000).to_i
     end
 
     def withdrawal?(transaction)

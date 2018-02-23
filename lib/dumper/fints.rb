@@ -33,7 +33,7 @@ class Dumper
     end
 
     def payee_name(transaction)
-      parse_transaction_at(32, transaction)
+      parse_transaction_at(32, transaction).strip
     end
 
     def payee_iban(transaction)
@@ -41,17 +41,18 @@ class Dumper
     end
 
     def memo(transaction)
-      parse_transaction_at(20, transaction)
+      parse_transaction_at(20, transaction).strip
     end
 
     def amount(transaction)
-      if transaction.funds_code == 'D'
-        amount = transaction.amount
-      else
-        amount = "-#{transaction.amount}"
-      end
+      amount =
+        if transaction.funds_code == 'D'
+          transaction.amount
+        else
+          "-#{transaction.amount}"
+        end
 
-      amount.to_i * 1000
+      (amount.to_f * 1000).to_i
     end
 
     def withdrawal?(transaction)

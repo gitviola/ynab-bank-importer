@@ -2,6 +2,7 @@ class Dumper
   class Bbva < Dumper
     require 'bankscrap'
     require 'bankscrap-bbva'
+    require 'digest/md5'
 
     def initialize(params = {})
       @ynab_id  = params.fetch('ynab_id')
@@ -16,19 +17,33 @@ class Dumper
         normalize_iban(a.iban) == @iban
       end
 
-      account.transactions.map { |t| to_ynab_format(t) }
+      account.transactions.map { |t| to_ynab_transaction(t) }
     end
 
     private
 
-    def to_ynab_format(transaction)
-      YNAB::Transaction.new(
-        date: transaction.effective_date,
-        payee: 'N/A',
-        is_withdrawal: withdrawal?(transaction),
-        memo: transaction.description,
-        amount: transaction.amount
-      )
+    def account_id
+      @ynab_id
+    end
+
+    def date(transaction)
+      transaction.effective_date
+    end
+
+    def payee_name(_transaction)
+      'N/A'
+    end
+
+    def payee_iban(_transaction)
+      nil
+    end
+
+    def memo(transaction)
+      transaction.description
+    end
+
+    def amount(transaction)
+      transaction.amount.fractional * 10
     end
 
     def withdrawal?(transaction)
@@ -37,6 +52,10 @@ class Dumper
 
     def normalize_iban(iban)
       iban.delete(' ')
+    end
+
+    def import_id(transaction)
+      Digest::MD5.hexdigest(transaction.id)
     end
   end
 end

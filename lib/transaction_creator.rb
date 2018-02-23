@@ -4,8 +4,10 @@ class TransactionCreator
                 :import_id, :is_withdrawal
 
   class <<self
+    require 'ynab/models/save_transaction'
+
     def call(options = {})
-      YNAB::Transaction.new(
+      YnabApi::SaveTransaction.new(
         account_id: options.fetch(:account_id),
         date: options.fetch(:date),
         amount: options.fetch(:amount),
@@ -14,7 +16,8 @@ class TransactionCreator
         category_id: category_id(options),
         memo: memo(options),
         import_id: options.fetch(:import_id),
-        cleared: "Cleared" # TODO: shouldn't be cleared if date is in the future
+        flag_color: flag_color(options),
+        cleared: 'cleared' # TODO: shouldn't be cleared if date is in the future
       )
     end
 
@@ -61,6 +64,11 @@ class TransactionCreator
       end
 
       result['ynab_id'] if result
+    end
+
+    def flag_color(options)
+      return 'orange' if internal_account_id(options)
+      nil
     end
 
     def payee_iban(options)

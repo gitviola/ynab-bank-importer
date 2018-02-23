@@ -13,13 +13,11 @@ class YNAB
     end
 
     def import_transactions!(transactions)
-      res = HTTParty.post(
+      HTTParty.post(
         "#{BASE_URL}/budgets/#{@budget_id}/transactions/bulk",
         headers: request_headers,
         body: { transactions: transactions }.to_json
       )
-
-      p res
     end
 
     private
