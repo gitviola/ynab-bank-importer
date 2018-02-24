@@ -37,7 +37,7 @@ class Dumper
     end
 
     def payee_name(transaction)
-      [transaction['merchantName'], transaction['partnerName']].join(' ').strip
+      [transaction['merchantName'], transaction['partnerName']].join(' ').try(:strip)
     end
 
     def payee_iban(transaction)
@@ -50,7 +50,7 @@ class Dumper
     end
 
     def memo(transaction)
-      [transaction['referenceText'], transaction['merchantCity']].join(' ').strip
+      [transaction['referenceText'], transaction['merchantCity']].join(' ').try(:strip)
     end
 
     def amount(transaction)

@@ -33,7 +33,7 @@ class Dumper
     end
 
     def payee_name(transaction)
-      parse_transaction_at(32, transaction).strip
+      parse_transaction_at(32, transaction).try(:strip)
     end
 
     def payee_iban(transaction)
@@ -41,7 +41,7 @@ class Dumper
     end
 
     def memo(transaction)
-      parse_transaction_at(20, transaction).strip
+      parse_transaction_at(20, transaction).try(:strip)
     end
 
     def amount(transaction)
