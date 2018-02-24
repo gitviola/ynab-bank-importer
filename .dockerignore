@@ -8,3 +8,7 @@ config.sample.yml
 .cache
 .export
 last_imported
+
+.codeclimate.yml
+.rspec
+spec

@@ -16,6 +16,10 @@ gem 'ruby_fints', git: 'https://github.com/schurig/ruby_fints.git', branch: 'ing
 
 gem 'base32'
 
+group :development do
+  gem 'rubocop', '~> 0.52.1', require: false
+end
+
 group :test do
   gem 'rspec'
   gem 'vcr'
