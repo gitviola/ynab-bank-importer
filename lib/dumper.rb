@@ -13,7 +13,7 @@ class Dumper
   end
 
   def to_ynab_transaction(transaction)
-    TransactionCreator.call(
+    ::TransactionCreator.call(
       account_id: account_id,
       date: date(transaction),
       payee_name: payee_name(transaction),

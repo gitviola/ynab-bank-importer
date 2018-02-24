@@ -1,0 +1,7 @@
+language: ruby
+rvm:
+- 2.4.2
+env:
+  - ENV=test
+script:
+  - bundle exec rspec spec
