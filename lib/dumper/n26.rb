@@ -1,6 +1,9 @@
 class Dumper
+  # Implements logic to fetch transactions via the N26 api
+  # and implements methods that convert the response to meaningful data.
   class N26 < Dumper
     require 'twentysix'
+    require 'time'
 
     WITHDRAWAL_CATEGORIES = [
       'micro-v2-atm',
@@ -22,6 +25,9 @@ class Dumper
         @categories[category['id']] = category['name']
       end
 
+      # to = Time.now.to_i
+      # from = to - 86_400 * 8
+
       client.transactions(count: 100).map { |t| to_ynab_transaction(t) }
     end
 
@@ -32,12 +38,15 @@ class Dumper
     end
 
     def date(transaction)
-      string_date = Time.at(transaction['visibleTS'] / 1000).strftime('%Y-%m-%d')
-      Date.parse(string_date)
+      timestamp = Time.at(transaction['visibleTS'] / 1000)
+      Date.parse(timestamp.strftime('%Y-%m-%d'))
     end
 
     def payee_name(transaction)
-      [transaction['merchantName'], transaction['partnerName']].join(' ').try(:strip)
+      [
+        transaction['merchantName'],
+        transaction['partnerName']
+      ].join(' ').try(:strip)
     end
 
     def payee_iban(transaction)
@@ -50,7 +59,10 @@ class Dumper
     end
 
     def memo(transaction)
-      [transaction['referenceText'], transaction['merchantCity']].join(' ').try(:strip)
+      [
+        transaction['referenceText'],
+        transaction['merchantCity']
+      ].join(' ').try(:strip)
     end
 
     def amount(transaction)

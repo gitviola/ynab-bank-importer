@@ -1,6 +1,6 @@
 vcr_options = { cassette_name: 'dumper/n26',
                 record: :none,
-                match_requests_on: [:method, :host, :path] }
+                match_requests_on: %i[method host path] }
 
 RSpec.describe Dumper::N26, vcr: vcr_options do
   subject(:object) { Dumper::N26.new(params) }
@@ -31,36 +31,36 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
     end
   end
 
-  describe '#category_name' do
-    let(:method) { object.send(:category_name, transactions[2]) }
+  # describe '#category_name' do
+  #   let(:method) { object.send(:category_name, transactions[2]) }
 
-    before do
-      categories = ['micro-v2-food-groceries' => 'Food']
-      allow(object).to receive(:@categories).and_return(categories)
-    end
+  #   before do
+  #     categories = ['micro-v2-food-groceries' => 'Food']
+  #     allow(object).to receive(:@categories).and_return(categories)
+  #   end
 
-    context 'when set_category is set to true' do
-      let(:params) do
-        {
-          'ynab_id' => '123466',
-          'username' => 'username',
-          'password' => 'password',
-          'iban' => 'DE89370400440532013000',
-          'set_category' => true
-        }
-      end
+  #   context 'when set_category is set to true' do
+  #     let(:params) do
+  #       {
+  #         'ynab_id' => '123466',
+  #         'username' => 'username',
+  #         'password' => 'password',
+  #         'iban' => 'DE89370400440532013000',
+  #         'set_category' => true
+  #       }
+  #     end
 
-      it 'returns the N26 category name' do
-        expect(method).to eq('Food & Groceries')
-      end
-    end
+  #     it 'returns the N26 category name' do
+  #       expect(method).to eq('Food & Groceries')
+  #     end
+  #   end
 
-    context 'when set_category is set to false' do
-      it 'returns nil' do
-        expect(method).to eq(nil)
-      end
-    end
-  end
+  #   context 'when set_category is set to false' do
+  #     it 'returns nil' do
+  #       expect(method).to eq(nil)
+  #     end
+  #   end
+  # end
 
   describe '#memo' do
     let(:method) { object.send(:memo, transaction) }

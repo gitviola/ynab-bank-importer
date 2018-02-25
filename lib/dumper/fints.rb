@@ -1,4 +1,6 @@
 class Dumper
+  # Implements logic to fetch transactions via the Fints protocol
+  # and implements methods that convert the response to meaningful data.
   class Fints < Dumper
     require 'ruby_fints'
     require 'digest/md5'
@@ -63,16 +65,14 @@ class Dumper
     end
 
     def import_id(transaction)
-      data = [
-        transaction_type(transaction),
-        transaction.entry_date,
-        transaction.amount,
-        transaction.funds_code,
-        transaction.reference,
-        payee_iban(transaction),
-        payee_name(transaction),
-        @iban
-      ].join
+      data = [transaction_type(transaction),
+              transaction.entry_date,
+              transaction.amount,
+              transaction.funds_code,
+              transaction.reference,
+              payee_iban(transaction),
+              payee_name(transaction),
+              @iban].join
 
       Digest::MD5.hexdigest(data)
     end
@@ -82,8 +82,8 @@ class Dumper
       # change the hash returned by the `import_id` which
       # could will result in duplicated entries.
 
-      str = parse_transaction_at(0, transaction).encode("iso-8859-1")
-                                                .force_encoding("utf-8")
+      str = parse_transaction_at(0, transaction).encode('iso-8859-1')
+                                                .force_encoding('utf-8')
       return nil unless str
       str[1..-1]
     end
@@ -98,6 +98,5 @@ class Dumper
 
       array.last.split(seperator).first
     end
-
   end
 end

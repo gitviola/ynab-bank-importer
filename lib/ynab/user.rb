@@ -1,4 +1,7 @@
 class YNAB
+  # Has knowledge of the YNAB credentails and sends the
+  # request to the API to create the transactions (bulk).
+  # Will be removed as soon the official api-ruby lib is better.
   class User
     require 'httparty'
     require 'json'

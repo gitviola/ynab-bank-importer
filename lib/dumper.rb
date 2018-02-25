@@ -1,3 +1,5 @@
+# Uses methods that need to be implemented by each dumper -
+# this is to enforce consitency.
 class Dumper
   def self.get_dumper(name)
     case name
@@ -12,6 +14,7 @@ class Dumper
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def to_ynab_transaction(transaction)
     ::TransactionCreator.call(
       account_id: account_id,
@@ -26,6 +29,7 @@ class Dumper
       import_id: import_id(transaction)
     )
   end
+  # rubocop:enable Metrics/MethodLength
 
   def category_name(_transaction)
     nil

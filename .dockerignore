@@ -10,5 +10,7 @@ config.sample.yml
 last_imported
 
 .codeclimate.yml
+.rubocop.yml
+.rubocop_todo.yml
 .rspec
 spec

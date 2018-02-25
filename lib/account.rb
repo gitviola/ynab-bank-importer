@@ -1,3 +1,5 @@
+# Represents a real bank account but maps it with a YNAB account
+# Uses the correct dumper to fetch the transactions.
 class Account
   attr_accessor :dumper, :iban, :ynab_id, :transactions
 

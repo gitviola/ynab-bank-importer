@@ -1,3 +1,5 @@
+# Calculates the correct parameters for the YNAB transaction
+# and build it.
 class TransactionCreator
   attr_accessor :account_id, :date, :amount, :payee_name, :payee_id,
                 :category_name, :category_id, :memo,
@@ -6,6 +8,7 @@ class TransactionCreator
   class <<self
     require 'ynab/models/save_transaction'
 
+    # rubocop:disable Metrics/MethodLength
     def call(options = {})
       YnabApi::SaveTransaction.new(
         account_id: options.fetch(:account_id),
@@ -20,6 +23,7 @@ class TransactionCreator
         cleared: 'cleared' # TODO: shouldn't be cleared if date is in the future
       )
     end
+    # rubocop:enable Metrics/MethodLength
 
     def payee_id(options)
       payee_id = options.fetch(:payee_id, nil)
@@ -42,8 +46,8 @@ class TransactionCreator
       memo
     end
 
-    def category_id(options)
-      # Todo: query through all categories and match by category_name
+    def category_id(_options)
+      # TODO: query through all categories and match by category_name
       nil
     end
 

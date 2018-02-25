@@ -1,4 +1,6 @@
 class Dumper
+  # Implements logic to fetch transactions via the BBVA Spain api
+  # and implements methods that convert the response to meaningful data.
   class Bbva < Dumper
     require 'bankscrap'
     require 'bankscrap-bbva'
