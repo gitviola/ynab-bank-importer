@@ -16,6 +16,7 @@ class Dumper
 
   # rubocop:disable Metrics/MethodLength
   def to_ynab_transaction(transaction)
+    return nil if date(transaction) > Date.today
     ::TransactionCreator.call(
       account_id: account_id,
       date: date(transaction),

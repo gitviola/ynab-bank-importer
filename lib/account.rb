@@ -15,7 +15,7 @@ class Account
 
   def fetch_transactions
     dumper = @dumper.new(@params)
-    @transactions = dumper.fetch_transactions
+    @transactions = dumper.fetch_transactions.compact
   end
 
   private
