@@ -31,7 +31,7 @@ class Dumper
     end
 
     def date(transaction)
-      transaction.date
+      transaction.entry_date
     end
 
     def payee_name(transaction)
