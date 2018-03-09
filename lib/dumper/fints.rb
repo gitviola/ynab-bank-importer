@@ -31,7 +31,7 @@ class Dumper
     end
 
     def date(transaction)
-      transaction.entry_date
+      transaction.date
     end
 
     def payee_name(transaction)
@@ -49,9 +49,9 @@ class Dumper
     def amount(transaction)
       amount =
         if transaction.funds_code == 'D'
-          transaction.amount
-        else
           "-#{transaction.amount}"
+        else
+          transaction.amount
         end
 
       (amount.to_f * 1000).to_i
@@ -66,7 +66,7 @@ class Dumper
 
     def import_id(transaction)
       data = [transaction_type(transaction),
-              transaction.entry_date,
+              transaction.date,
               transaction.amount,
               transaction.funds_code,
               transaction.reference,
