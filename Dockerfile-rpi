@@ -2,7 +2,7 @@ FROM knjcode/rpi-ruby
 
 RUN apt-get update && \
     apt-get -y install \
-      gcc mono-mcs build-essential \
+      build-essential \
       locales && \
     rm -rf /var/lib/apt/lists/*
 
