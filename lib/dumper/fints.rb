@@ -69,9 +69,9 @@ class Dumper
               transaction.date,
               transaction.amount,
               transaction.funds_code,
-              transaction.reference,
+              transaction.reference.try(:downcase),
               payee_iban(transaction),
-              payee_name(transaction),
+              payee_name(transaction).try(:downcase),
               @iban].join
 
       Digest::MD5.hexdigest(data)

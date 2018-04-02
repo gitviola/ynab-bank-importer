@@ -4,6 +4,7 @@ class Dumper
   class N26 < Dumper
     require 'twentysix'
     require 'time'
+    require 'digest/md5'
 
     WITHDRAWAL_CATEGORIES = [
       'micro-v2-atm',
@@ -74,7 +75,12 @@ class Dumper
     end
 
     def import_id(transaction)
-      transaction['id']
+      data = [transaction['visibleTS'],
+              transaction['transactionNature'],
+              transaction['amount'],
+              transaction['accountId']].join
+
+      Digest::MD5.hexdigest(data)
     end
   end
 end

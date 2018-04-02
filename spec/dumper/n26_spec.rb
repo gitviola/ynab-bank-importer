@@ -142,7 +142,7 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
     let(:method) { object.send(:import_id, transactions.first) }
 
     it 'sets it correctly' do
-      expect(method).to eq('bf0396f2-13e7-46e3-ae6b-55555555')
+      expect(method).to eq('46c9ccde424652bc013dca9b408dcdec')
     end
   end
 end
