@@ -1,7 +1,7 @@
-# Calculates the correct parameters for the YNAB transaction
-# and build it.
 require 'ynab'
 
+# Calculates the correct parameters for the YNAB transaction
+# and build it.
 class TransactionCreator
   attr_accessor :account_id, :date, :amount, :payee_name, :payee_id,
                 :category_name, :category_id, :memo,
