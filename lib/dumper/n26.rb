@@ -29,7 +29,9 @@ class Dumper
       # to = Time.now.to_i
       # from = to - 86_400 * 8
 
-      client.transactions(count: 100).map { |t| to_ynab_transaction(t) }
+      client.transactions(count: 100)
+            .reject { |t| t['pending'] } # Only transactions that aren't pending
+            .map { |t| to_ynab_transaction(t) }
     end
 
     private
