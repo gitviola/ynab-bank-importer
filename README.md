@@ -1,10 +1,10 @@
-# Bank YNAB importer [![Docker Build Statu](https://img.shields.io/docker/pulls/schurig/ynab-bank-importer.svg)](https://hub.docker.com/r/schurig/ynab-bank-importer/) [![Docker Build Statu](https://img.shields.io/docker/build/schurig/ynab-bank-importer.svg)](https://hub.docker.com/r/schurig/ynab-bank-importer/builds/)
+# Bank YNAB importer [![Docker Build Statu](https://img.shields.io/docker/pulls/schurig/ynab-bank-importer.svg)](https://hub.docker.com/r/schurig/ynab-bank-importer/) [![Docker Build Statu](https://img.shields.io/docker/build/schurig/ynab-bank-importer.svg)](https://hub.docker.com/r/schurig/ynab-bank-importer/builds/) [![Maintainability](https://api.codeclimate.com/v1/badges/4367cde9c1b522b4bcbe/maintainability)](https://codeclimate.com/github/schurig/ynab-bank-importer/maintainability)
 
 This is a ruby script that **pulls your transactions from your banks** and imports them into **You Need A Budget** (YNAB).
 
 ## Supported banks
 
-* Most German and Austrian banks _(all banks that [figo.io](https://figo.io) or that implement the FinTS standard)_
+* Most German and Austrian banks _(all banks that implement the FinTS standard)_
 * BBVA Spain _(private accounts only)_
 * N26
 
@@ -12,9 +12,9 @@ This is a ruby script that **pulls your transactions from your banks** and impor
 
 YNAB only supports U.S. and Canadian Banks for now.
 
-_If you're someone from the YNAB-Team: please add a public api-endpoint for an easier import of transactions. ❤️_
-
 ## Usage
+
+You will need to obtain a personal access token. [Here is a tutorial on how to do it](https://api.youneedabudget.com/#personal-access-tokens).
 
 **If you clone this repository you don't need to follow step 2!**
 
@@ -27,15 +27,13 @@ _If you're someone from the YNAB-Team: please add a public api-endpoint for an e
 ```yaml
 ---
 ynab:
-  username: # email
-  password: # password
+  access_token: # ynab access token
   budget_id: # budget_id
-  cash_account_name: # optional
+  cash_account_id: # optional
 accounts:
   - dumper: :n26
     iban: # iban of your n26
     ynab_id: # account id in YNAB
-    ynab_name: # account name in YNAB
     username: # email
     password: # password
 ```
@@ -72,7 +70,7 @@ The FinTS / HBCI standard is mainly implemented by German banks.
 
 #### Note
 
-* It currently only fetches the last 100 transactions. Please open an issue or PR if you want to change this.
+* It currently only fetches the last 100 transactions. Please open an issue or PR if you want to change this. For now I didn't see the use case for it.
 
 #### Options
 
@@ -84,37 +82,17 @@ The FinTS / HBCI standard is mainly implemented by German banks.
 
 The field `payee` will be `N/A` because we currently don't get the payee name.
 
-### Figo `:figo`
-
-You need to get a [figo.io](https://figo.io) account first.
-
-#### Options
-
-* `force_download` _(default: false)_
-
-> Since there is a high chance that you use the `:figo` dumper more than once, all transactions from figo will be downloaded once and be cached thoughout the run.
->
-> _If you want to turn off this behavior add the option `force_download: true`._
-
 # Technical details on how it works
 
-On [app.youneedabudget.com](https://app.youneedabudget.com) you can upload a `.csv` file with your transactions. The structure looks like this:
+The script fetches the transaction information from your bank(s). Then it uses the official YNAB API to create the transactions for you.
 
-```csv
-Date,Payee,Category,Memo,Outflow,Inflow
-2017-08-13,METRO BARCELONA,Transport & Car,Ticket for the Beach,"",-9.95
-```
+The script also includes some additional logic like detecting internal transactions by checking if the account transactions go to or come from is one of the other accounts that you set up in the config _(of course this only works if you have multiple accounts configured)_.
 
-*So we need this information for each transaction:*
+# Known Problems
 
-* Date _(YYYY-MM-DD)_
-* Payee
-* Category _(optional)_
-* Outflow _(optional *if `Inflow` also uses negative numbers*)_
-* Inflow
+* Internal transactions _(transfer from one account to an other one)_ don't work yet. This is because the official YNAB API doesn't support the creation of internal transactions yet. **Workaround:** the script flags those transactions in orange, so you can quickly see them and manually edit them to be an internal transaction.
 
-The script fetches the transaction information from your bank and puts it into the format mentioned above.
-It exports the result of each individual account in a file. Then it uses selenium-webdriver Chrome to login to your YNAB account, navigates to the right account and imports it for you.
+* With N26 it could import a transactions twice from time to time. This is a problem on N26's side, because they change the id of the transaction sometimes. **Workaround:** when you see a transaction showing up twice, you can discard it. It's easy to spot because the payee, date and the price are usually the same.
 
 ____________________
 

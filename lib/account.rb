@@ -1,5 +1,7 @@
+# Represents a real bank account but maps it with a YNAB account
+# Uses the correct dumper to fetch the transactions.
 class Account
-  attr_accessor :dumper, :iban, :ynab_id, :csv_file
+  attr_accessor :dumper, :iban, :ynab_id, :transactions
 
   def initialize(params = {})
     @dumper   = Dumper.get_dumper(params.fetch('dumper'))
@@ -13,22 +15,7 @@ class Account
 
   def fetch_transactions
     dumper = @dumper.new(@params)
-    @transactions = dumper.fetch_transactions
-  end
-
-  def export_transactions
-    raise 'You need to call `fetch_transactions` first' if @transactions.nil?
-    return if @transactions.empty?
-
-    FileUtils.mkdir_p YNAB::EXPORT_DIR
-    CSV.open(export_file, 'wb') do |csv|
-      csv << %w(Date Payee Category Memo Outflow Inflow)
-      @transactions.each { |transaction| csv << transaction.to_a }
-    end
-  end
-
-  def export_file
-    "#{YNAB::EXPORT_DIR}/#{@iban}.csv"
+    @transactions = dumper.fetch_transactions.compact
   end
 
   private

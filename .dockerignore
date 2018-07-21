@@ -8,3 +8,9 @@ config.sample.yml
 .cache
 .export
 last_imported
+
+.codeclimate.yml
+.rubocop.yml
+.rubocop_todo.yml
+.rspec
+spec

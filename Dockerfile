@@ -1,6 +1,4 @@
-FROM ruby:2.4.1
-
-MAINTAINER Martin Schurig <martin@schurig.pw>
+FROM ruby:2.5.0
 
 # Set the locale
 RUN apt-get clean && apt-get update && apt-get install -y locales
@@ -10,9 +8,6 @@ RUN locale-gen en_US.UTF-8 && \
 ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8
-
-RUN git clone https://github.com/schurig/ruby_fints.git && cd ruby_fints && git checkout ing-diba && gem build ruby_fints.gemspec && gem install ruby_fints-0.0.1.gem
-# original: https://github.com/playtestcloud/ruby_fints.git
 
 RUN mkdir /usr/app
 WORKDIR /usr/app

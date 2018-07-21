@@ -1,15 +1,21 @@
 require 'yaml'
+require 'ynab'
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |f| require f }
 Dir[File.join('.', 'lib/**/*.rb')].each { |f| require f }
 
-YNAB.cleanup
+# Gathering transactions
+transactions =
+  Settings.all['accounts'].map do |a|
+    account = Account.new(a)
+    account.fetch_transactions
+    account.transactions
+  end.flatten!
 
-ynab_user = YNAB::User.new(Settings.all['ynab'])
+# Importing transactions
+budget_id = Settings.all['ynab'].fetch('budget_id')
+access_token = Settings.all['ynab'].fetch('access_token')
 
-Settings.all['accounts'].each do |a|
-  account = Account.new(a)
-  account.fetch_transactions
-  account.export_transactions
-  ynab_user.import_transactions_to_account!(account)
-end
+ynab_api = YNAB::API.new(access_token)
+bulk_transactions = YNAB::BulkTransactions.new(transactions: transactions)
+ynab_api.transactions.bulk_create_transactions(budget_id, bulk_transactions)

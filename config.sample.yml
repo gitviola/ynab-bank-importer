@@ -1,34 +1,21 @@
 ---
 ynab:
-  username: # YNAB username
-  password: # YNAB password
+  access_token: # Your YNAB access token
   budget_id: # the first hash in the url when you open your budget
-  cash_account_name: 'Cash' # if set that it creates transactions
+  cash_account_id:  # if set that it creates transactions
                             # to your cash account if withdrawal is detected
 accounts:
   - dumper: :fints
     iban: # iban of your account
     ynab_id: # last hash in the url when you click on the account in YNAB
-    ynab_name: # the exact name how you named that account in YNAB
     username: # online banking username / alias
     password: # online banking PIN (NOT! the pin of your bank card!)
     fints_blz: # Your bank's code / Bankleitzahl
     fints_endpoint: # can be found here: https://www.hbci-zka.de/institute/institut_auswahl.htm
                     # Use the PIN/TAN URL from the link above
-  - dumper: :figo
-    iban: # iban of your account
-    ynab_id: # last hash in the url when you click on the account in YNAB
-    ynab_name: # the exact name how you named that account in YNAB
-    username: # figo username
-    password: # figo password
-    force_download: # default: false
-                    # // if you have multiple figo entries it
-                    #    only fetches all transactions once.
-                    #    To turn this off set this to true.
   - dumper: :n26
     iban: # n26 iban
     ynab_id: # last hash in the url when you click on the account in YNAB
-    ynab_name: # the exact name how you named that account in YNAB
     username: # n26 username
     password: # n26 password
     set_category: false # default: false, sets the N26 category name as category

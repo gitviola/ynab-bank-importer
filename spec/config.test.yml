@@ -1,0 +1,26 @@
+---
+ynab:
+  access_token: 123456789
+  budget_id: 'b01bcd86-1905-11e8-ad03-2b62fa19f158'
+  cash_account_id: 'b4fb2fd6-1905-11e8-98a1-b3e93d6cc9e2'
+accounts:
+  - dumper: :fints
+    iban: 'DE89370400440532013000'
+    ynab_id: 'ebec22d4-1905-11e8-8a4c-7b32b5a7e49f'
+    ynab_name: 'Eingang'
+    username: 'username'
+    password: 'password'
+    fints_endpoint: 'https://fints.ing-diba.de/fints/'
+    fints_blz: '50010517'
+  - dumper: :bbva
+    iban: 'ES7789370400440532013000'
+    ynab_id: 'ebec22d4-1905-11e8-8a4c-7b32b5a7e49f'
+    ynab_name: 'Eingang'
+    username: 'username'
+    password: 'password'
+  - dumper: :n26
+    iban: 'DE89370400440532013077'
+    ynab_id: 'fc77e57a-1905-11e8-8af6-23ae8eb613f6'
+    ynab_name: 'Ausgaben'
+    username: 'username'
+    password: 'password'
