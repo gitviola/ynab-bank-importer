@@ -105,5 +105,5 @@ I'm not that into hardware. It would be super awesome if someone could help maki
 # Thanks
 
 * [@mkilling](https://github.com/mkilling) for writing the [FinTS ruby lib](https://github.com/playtestcloud/ruby_fints) that I'm using & helping me fixing a bug
-* [@wizonesolutions][https://github.com/wizonesolutions] for giving feedback on the N26 integration and [PR #9](https://github.com/schurig/ynab-bank-importer/pull/9)
+* [@wizonesolutions](https://github.com/wizonesolutions) for giving feedback on the N26 integration and [PR #9](https://github.com/schurig/ynab-bank-importer/pull/9)
 * you for reading this
