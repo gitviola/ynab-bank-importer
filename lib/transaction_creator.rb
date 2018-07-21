@@ -1,5 +1,7 @@
 # Calculates the correct parameters for the YNAB transaction
 # and build it.
+require 'ynab'
+
 class TransactionCreator
   attr_accessor :account_id, :date, :amount, :payee_name, :payee_id,
                 :category_name, :category_id, :memo,
@@ -10,7 +12,7 @@ class TransactionCreator
 
     # rubocop:disable Metrics/MethodLength
     def call(options = {})
-      YnabApi::SaveTransaction.new(
+      YNAB::SaveTransaction.new(
         account_id: options.fetch(:account_id),
         date: options.fetch(:date),
         amount: options.fetch(:amount),

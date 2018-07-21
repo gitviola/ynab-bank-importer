@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'httparty'
-gem 'ynab'
+gem 'ynab', '~> 1.2.0'
 
 # Dumper: BBVA
 gem 'bankscrap'
