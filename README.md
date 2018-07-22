@@ -40,7 +40,8 @@ accounts:
 
 _Example: [`config.sample.yml`](https://github.com/schurig/ynab-bank-importer/blob/master/config.sample.yml)_
 
-3. `docker-compose pull ruby && docker-compose run ruby`
+3. `docker-compose pull importer && docker-compose run importer`
+
 
 ## Dumpers
 
