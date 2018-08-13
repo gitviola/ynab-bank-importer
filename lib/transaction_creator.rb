@@ -34,7 +34,8 @@ class TransactionCreator
       return cash_account_id if withdrawal?(options)
 
       internal_account_id = internal_account_id(options)
-      internal_account_id if internal_account_id
+      return internal_account_id if internal_account_id
+      nil
     end
 
     def payee_name(options)
@@ -69,7 +70,8 @@ class TransactionCreator
         account['ynab_id'] && payee_iban && account['iban'] == payee_iban
       end
 
-      result['ynab_id'] if result
+      return result['ynab_id'] if result
+      nil
     end
 
     def flag_color(options)
