@@ -2,7 +2,7 @@
 
 This is a ruby script that **pulls your transactions from your banks** and imports them into **You Need A Budget** (YNAB).
 
-**Mission: ** A script that can run every 15 minutes on a small and cheap mini-computer at your home (eg. raspberry pi) with an easy configuration and support for most European banks.
+**Mission:** A script that can run every 15 minutes on a small and cheap mini-computer at your home (eg. raspberry pi) with an easy configuration and support for most European banks.
 
 ## Supported banks
 
