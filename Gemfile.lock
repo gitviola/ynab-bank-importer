@@ -121,6 +121,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   bankscrap
   bankscrap-bbva (~> 2.0.2)
   base32

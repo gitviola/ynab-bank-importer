@@ -13,6 +13,7 @@ gem 'twentysix'
 # Dumper: FinTS
 gem 'ruby_fints', '0.0.3'
 
+gem 'activesupport'
 gem 'base32'
 
 group :development do
