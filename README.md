@@ -55,7 +55,7 @@ The FinTS / HBCI standard is mainly implemented by German banks.
 
 * `fints_endpoint` _(required)_
 
-> The endpoint is the url which is needed to communicate with your bank to fetch the recent transactions. You can find it out [here](https://www.hbci-zka.de/institute/institut_auswahl.htm) (use the PIN/TAN URL from the link).
+> The endpoint is the url is needed to communicate with your bank to fetch the recent transactions. You can find it out by looking for it on the internet. If you don't find the endpoint please contact me _(before the list was available online but the Deutsche Kreditwirtschaft decided to take it offline and require a registration with personal information)_ ynab-bank-importer@vioa.de.
 
 * `fints_blz` _(required)_
 
