@@ -15,11 +15,12 @@ GEM
       money
       thor
       unicode-display_width
-    bankscrap-bbva (2.0.2)
-      bankscrap (~> 2.0.3)
+    bankscrap-bbva (2.0.3)
+      bankscrap (>= 2.0.0)
     base32 (0.3.2)
     cmxl (0.2.1)
       rchardet19
+    colorize (0.8.1)
     concurrent-ruby (1.0.5)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -113,7 +114,7 @@ GEM
       crack (>= 0.3.2)
       hashdiff
     webrobots (0.1.2)
-    ynab (1.2.0)
+    ynab (1.3.0)
       json (~> 2.1, >= 2.1.0)
       typhoeus (~> 1.0, >= 1.0.1)
 
@@ -122,8 +123,9 @@ PLATFORMS
 
 DEPENDENCIES
   bankscrap
-  bankscrap-bbva (~> 2.0.2)
+  bankscrap-bbva (= 2.0.3)
   base32
+  colorize
   httparty
   rspec
   rubocop (~> 0.52.1)
@@ -132,7 +134,7 @@ DEPENDENCIES
   twentysix
   vcr
   webmock
-  ynab (~> 1.2.0)
+  ynab (= 1.3.0)
 
 BUNDLED WITH
    1.16.1

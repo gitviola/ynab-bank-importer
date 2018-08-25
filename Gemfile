@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
 gem 'httparty'
-gem 'ynab', '~> 1.2.0'
+gem 'ynab', '1.3.0'
 
 # Dumper: BBVA
 gem 'bankscrap'
-gem 'bankscrap-bbva', '~> 2.0.2'
+gem 'bankscrap-bbva', '2.0.3'
 
 # Dumper: N26
 gem 'twentysix'
@@ -14,6 +14,7 @@ gem 'twentysix'
 gem 'ruby_fints', '0.0.3'
 
 gem 'base32'
+gem 'colorize'
 
 group :development do
   gem 'rubocop', '~> 0.52.1', require: false
