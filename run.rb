@@ -18,4 +18,10 @@ access_token = Settings.all['ynab'].fetch('access_token')
 
 ynab_api = YNAB::API.new(access_token)
 bulk_transactions = YNAB::BulkTransactions.new(transactions: transactions)
-ynab_api.transactions.bulk_create_transactions(budget_id, bulk_transactions)
+
+begin
+  ynab_api.transactions.bulk_create_transactions(budget_id, bulk_transactions)
+rescue YNAB::ApiError => e
+  ErrorMessage.new(e).print
+  abort
+end
