@@ -10,7 +10,7 @@ This is a ruby script that **pulls your transactions from your banks** and impor
 * BBVA Spain _(private accounts only)_
 * N26
 
-**Check out the [configuration guides for the dumpers and banks](https://github.com/schurig/ynab-bank-importer/wiki#supported-dumpers)**
+**💡 Check out the [configuration guides for the dumpers and banks](https://github.com/schurig/ynab-bank-importer/wiki#supported-dumpers)**.
 
 ## Why
 
@@ -46,7 +46,7 @@ _Example: [`config.sample.yml`](https://github.com/schurig/ynab-bank-importer/bl
 
 3. `docker-compose pull importer && docker-compose run importer`
 
-**Check out the [guides to set up the script](https://github.com/schurig/ynab-bank-importer/wiki#ways-to-set-up-the-script)**.
+**💡 Check out the [guides to set up the script](https://github.com/schurig/ynab-bank-importer/wiki#ways-to-set-up-the-script)**.
 
 # Technical details on how it works
 
