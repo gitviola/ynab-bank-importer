@@ -94,7 +94,7 @@ class Dumper
     def calculated_timestamp(transaction)
       return transaction['visibleTS'] if alread_processed?(transaction)
       offset_to_utc = Time.now.in_time_zone('Europe/Berlin').utc_offset
-      transaction['visibleTS'] / 1000 + offset_to_utc
+      transaction['visibleTS'] + offset_to_utc
     end
 
     # All very recent transactions with the credit card have
