@@ -85,11 +85,11 @@ class Dumper
       Digest::MD5.hexdigest(data)
     end
 
-    # N26 seems to have an internal timezone mismatch in their database
-    # transactions that are not processed yet have the `visibleTS` value
+    # N26 seems to have an internal timezone mismatch in their database.
+    # Transactions that are not processed yet have the `visibleTS` value
     # in UTC but processed transactions have timezone Europe/Berlin.
     # => This method checks if the transaction was processed or not.
-    #    If it's already processed it will just take the time, if not if will
+    #    If it's already processed it will just take the value, if not it will
     #    add the current offset to make it Europe/Berlin timezone.
     def calculated_timestamp(transaction)
       return transaction['visibleTS'] if alread_processed?(transaction)
@@ -99,7 +99,7 @@ class Dumper
 
     # All very recent transactions with the credit card have
     # the type value set to "AA". So we assume that this is an
-    # indicator to check if a transactions has been processed or not.
+    # indicator to check if a transaction has been processed or not.
     def alread_processed?(transaction)
       transaction['type'] != 'AA'
     end
