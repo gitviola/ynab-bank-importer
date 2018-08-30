@@ -4,6 +4,13 @@ This is a ruby script that **pulls your transactions from your banks** and impor
 
 **Mission:** A script that can run every 15 minutes on a small and cheap mini-computer at your home (eg. raspberry pi) with an easy configuration and support for most European banks.
 
+**Documentation:**
+
+* [How to setup](https://github.com/schurig/ynab-bank-importer/wiki#ways-to-set-up-the-script)
+* [Frequently asked questions (FAQ)](https://github.com/schurig/ynab-bank-importer/wiki/faq)
+
+---
+
 ## Supported banks
 
 * Most German and Austrian banks _(all banks that implement the FinTS standard)_
@@ -16,38 +23,6 @@ This is a ruby script that **pulls your transactions from your banks** and impor
 
 YNAB only supports U.S. and Canadian Banks for now.
 
-## Example setup with docker
-
-You will need to obtain a personal access token. [Here is a tutorial on how to do it](https://api.youneedabudget.com/#personal-access-tokens).
-
-**If you clone this repository you don't need to follow step 2!**
-
-1. Install docker and docker-compose
-
-2. Create a `docker-compose.yml` file with [this content](https://raw.githubusercontent.com/schurig/ynab-bank-importer/master/docker-compose.yml)
-
-3. Create a `config.yml`
-
-```yaml
----
-ynab:
-  access_token: # ynab access token
-  budget_id: # budget_id
-  cash_account_id: # optional
-accounts:
-  - dumper: :n26
-    iban: # iban of your n26
-    ynab_id: # account id in YNAB
-    username: # email
-    password: # password
-```
-
-_Example: [`config.sample.yml`](https://github.com/schurig/ynab-bank-importer/blob/master/config.sample.yml)_
-
-3. `docker-compose pull importer && docker-compose run importer`
-
-**💡 Check out the [guides to set up the script](https://github.com/schurig/ynab-bank-importer/wiki#ways-to-set-up-the-script)**.
-
 # Technical details on how it works
 
 The script fetches the transaction information from your bank(s). Then it uses the official YNAB API to create the transactions for you.
@@ -56,9 +31,13 @@ The script also includes some additional logic like detecting internal transacti
 
 # Known Problems
 
-* Internal transactions _(transfer from one account to an other one)_ don't work yet. This is because the official YNAB API doesn't support the creation of internal transactions yet. **Workaround:** the script flags those transactions in orange, so you can quickly see them and manually edit them to be an internal transaction.
+* Internal transactions _(transfer from one account to an other one)_ don't work yet. This is because the official YNAB API doesn't support the creation of internal transactions yet.
 
-* With N26 it could import a transactions twice from time to time. This is a problem on N26's side, because they change the id of the transaction sometimes. **Workaround:** when you see a transaction showing up twice, you can discard it. It's easy to spot because the payee, date and the price are usually the same.
+> **Workaround:** the script flags those transactions in orange, so you can quickly see them and manually edit them to be an internal transaction.
+
+* With N26 it could import a transactions twice from time to time. This is a problem on N26's side, because they change the id of the transaction sometimes.
+
+> **Workaround:** when you see a transaction showing up twice, you can discard it. It's easy to spot because the payee, date and the price are usually the same. We're working on a solution here: [#16](https://github.com/schurig/ynab-bank-importer/pull/16).
 
 ____________________
 
@@ -66,7 +45,7 @@ ____________________
 
 Support and contriubution of any kind is always welcome!!!
 
-I'm not that into hardware. It would be super awesome if someone could help making this work on Raspbian. I already tried but building the docker container fails _(Dockerfile-rpi)_.
+I'm not that into hardware. It would be super awesome if someone could help making this work on Raspbian. I already tried but building the docker container fails _(Dockerfile.rpi)_. The PR related to that you can find here: [18](https://github.com/schurig/ynab-bank-importer/pull/18)
 
 # Thanks
 
