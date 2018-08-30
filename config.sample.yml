@@ -11,8 +11,7 @@ accounts:
     username: # online banking username / alias
     password: # online banking PIN (NOT! the pin of your bank card!)
     fints_blz: # Your bank's code / Bankleitzahl
-    fints_endpoint: # can be found here: https://www.hbci-zka.de/institute/institut_auswahl.htm
-                    # Use the PIN/TAN URL from the link above
+    fints_endpoint: # more info can be found here: https://github.com/schurig/ynab-bank-importer/wiki/FinTS---HBCI#fints_endpoint
   - dumper: :n26
     iban: # n26 iban
     ynab_id: # last hash in the url when you click on the account in YNAB
