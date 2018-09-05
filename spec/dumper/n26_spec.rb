@@ -14,6 +14,14 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
     }
   end
 
+  let(:transaction_pending) do
+    JSON.parse(File.read('spec/fixtures/dumper/n26/transaction_pending.json'))
+  end
+
+  let(:transaction_processed) do
+    JSON.parse(File.read('spec/fixtures/dumper/n26/transaction_processed.json'))
+  end
+
   let(:transactions) do
     client = TwentySix::Core.authenticate('username', 'password')
     client.transactions
@@ -143,6 +151,20 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
 
     it 'sets it correctly' do
       expect(method).to eq('46c9ccde424652bc013dca9b408dcdec')
+    end
+
+    it 'is the same for a pending transaction and a processed transaction' do
+      expect(
+        object.send(:import_id, transaction_pending)
+      ).to eq(object.send(:import_id, transaction_processed))
+    end
+  end
+
+  describe '#calculated_timestamp' do
+    it 'is the same for a pending transaction and a processed transaction' do
+      expect(
+        object.send(:calculated_timestamp, transaction_pending)
+      ).to eq(object.send(:calculated_timestamp, transaction_processed))
     end
   end
 end
