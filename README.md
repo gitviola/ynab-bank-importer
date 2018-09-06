@@ -31,7 +31,7 @@ The script also includes some additional logic like detecting internal transacti
 
 # Known Problems
 
-* Internal transactions _(transfer from one account to an other one)_ don't work yet. This is because the official YNAB API doesn't support the creation of internal transactions yet.
+* Internal transactions _(transfer from one account to an other one)_ don't work yet. This is because the official YNAB API doesn't support the creation of internal transactions yet. They announced [here](https://support.youneedabudget.com/t/18pw4x?pg=1#x12hlq) that they're working on it 🎉.
 
 > **Workaround:** the script flags those transactions in orange, so you can quickly see them and manually edit them to be an internal transaction.
 
