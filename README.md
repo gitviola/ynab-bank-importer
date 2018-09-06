@@ -35,10 +35,6 @@ The script also includes some additional logic like detecting internal transacti
 
 > **Workaround:** the script flags those transactions in orange, so you can quickly see them and manually edit them to be an internal transaction.
 
-* With N26 it could import a transactions twice from time to time. This is a problem on N26's side, because they change the id of the transaction sometimes.
-
-> **Workaround:** when you see a transaction showing up twice, you can discard it. It's easy to spot because the payee, date and the price are usually the same. We're working on a solution here: [#16](https://github.com/schurig/ynab-bank-importer/pull/16).
-
 ____________________
 
 # Support / Contribution
