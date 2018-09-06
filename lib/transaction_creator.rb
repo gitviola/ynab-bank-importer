@@ -45,6 +45,8 @@ class TransactionCreator
 
     def memo(options)
       memo = options.fetch(:memo, nil)
+      # The api has a limit of 100 characters for the momo field
+      memo = truncate(memo, 100)
       return "ATM withdrawal #{memo}" if withdrawal?(options)
       memo
     end
@@ -55,6 +57,10 @@ class TransactionCreator
     end
 
     # Helper methods
+
+    def truncate(string, max)
+      string.length > max ? string[0...max] : string
+    end
 
     def cash_account_id
       Settings.all['ynab'].fetch('cash_account_id', nil)
