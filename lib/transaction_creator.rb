@@ -59,6 +59,7 @@ class TransactionCreator
     # Helper methods
 
     def truncate(string, max)
+      return nil unless string
       string.length > max ? string[0...max] : string
     end
 
