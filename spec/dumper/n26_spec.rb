@@ -15,11 +15,15 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
   end
 
   let(:transaction_pending) do
-    JSON.parse(File.read('spec/fixtures/dumper/n26/transaction_pending.json'))
+    JSON.parse(
+      File.read('spec/fixtures/dumper/n26/transaction_pending.json')
+    ).first
   end
 
   let(:transaction_processed) do
-    JSON.parse(File.read('spec/fixtures/dumper/n26/transaction_processed.json'))
+    JSON.parse(
+      File.read('spec/fixtures/dumper/n26/transaction_processed.json')
+    ).first
   end
 
   let(:transactions) do
