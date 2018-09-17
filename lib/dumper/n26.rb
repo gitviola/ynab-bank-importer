@@ -22,12 +22,10 @@ class Dumper
 
     def fetch_transactions
       client = TwentySix::Core.authenticate(@username, @password)
+      check_authorization!(client)
       client.categories.map do |category|
         @categories[category['id']] = category['name']
       end
-
-      # to = Time.now.to_i
-      # from = to - 86_400 * 8
 
       client.transactions(count: 100)
             .reject { |t| t['pending'] } # Only transactions that aren't pending
@@ -35,6 +33,12 @@ class Dumper
     end
 
     private
+
+    def check_authorization!(client)
+      return if client.instance_variable_get('@access_token')
+      raise "Couldn't login with your provided N26 credentials. " \
+            "Please verify that they're correct."
+    end
 
     def account_id
       @ynab_id
