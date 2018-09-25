@@ -81,8 +81,7 @@ class TransactionCreator
       nil
     end
 
-    def flag_color(options)
-      return 'orange' if internal_account_id(options)
+    def flag_color(_options)
       nil
     end
 
