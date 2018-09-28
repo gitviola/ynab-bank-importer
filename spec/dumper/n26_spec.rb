@@ -30,6 +30,13 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
   describe '#fetch_transactions' do
     subject(:method) { object.fetch_transactions }
 
+    before do
+      allow(TransactionCreator).to(
+        receive(:find_payee_id_by_account_id)
+        .and_return('12345')
+      )
+    end
+
     it 'sets the transactions' do
       expect(method).to be_truthy
     end

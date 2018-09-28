@@ -1,5 +1,7 @@
 require 'vcr'
 
+ENV['ENV'] = 'test'
+
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |f| require f }
 Dir[File.join('.', 'lib/**/*.rb')].each { |f| require f }
 
