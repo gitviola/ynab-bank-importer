@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.youneedabudget.com/v1/budgets/b01bcd86-1905-11e8-ad03-2b62fa19f158/accounts/ebec22d4-1905-11e8-8a4c-7b32b5a7e49f
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - api_client/ruby/1.5.0
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Authorization:
+      - Bearer 123456789
+      Expect:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Fri, 28 Sep 2018 20:37:17 GMT
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Rate-Limit:
+      - 2/200
+      Vary:
+      - Accept-Encoding, Origin
+      Etag:
+      - W/"b2af3a7fd0da15ba3779d251a6863d0c"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 4792d1df-0622-468c-8753-79692230cf55
+      X-Runtime:
+      - '0.037224'
+      Strict-Transport-Security:
+      - max-age=15552000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"data":{"account":{"id":"DE89370400440532013000","name":"MyBank
+        Giro","type":"checking","on_budget":true,"closed":false,"note":"MyBank Giro","balance":111,"cleared_balance":111,"uncleared_balance":0,"transfer_payee_id":"57244b6e-c35e-11e8-8178-8f80c501f13b","deleted":false}}}'
+    http_version:
+  recorded_at: Fri, 28 Sep 2018 20:37:18 GMT
+recorded_with: VCR 4.0.0

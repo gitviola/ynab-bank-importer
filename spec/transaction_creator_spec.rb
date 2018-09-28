@@ -61,7 +61,7 @@ RSpec.describe TransactionCreator do
 
     context 'when transaction is an internal transfer' do
       before do
-        allow(described_class).to receive(:internal_account_id)
+        allow(described_class).to receive(:account_payee_id)
           .and_return('12345')
       end
 
@@ -77,14 +77,21 @@ RSpec.describe TransactionCreator do
     end
   end
 
-  describe '.internal_account_id' do
-    subject(:method) { described_class.internal_account_id(options) }
+  describe '.account_payee_id' do
+    subject(:method) { described_class.account_payee_id(options) }
 
     let(:options) { { payee_iban: payee_iban } }
 
     context 'when the transfer is an internal transfer' do
       let(:payee_iban) { 'DE89370400440532013000' }
       let(:expected_account_id) { 'ebec22d4-1905-11e8-8a4c-7b32b5a7e49f' }
+
+      before do
+        allow(described_class).to(
+          receive(:find_payee_id_by_account_id)
+          .and_return(expected_account_id)
+        )
+      end
 
       it 'returns the correct account id' do
         expect(method).to eq(expected_account_id)
@@ -97,6 +104,19 @@ RSpec.describe TransactionCreator do
       it 'returns the correct account id' do
         expect(method).to be_nil
       end
+    end
+  end
+
+  VCR_OPTIONS = { match_requests_on: %i[method host path] }.freeze
+  describe '.find_payee_id_by_account_id', vcr: VCR_OPTIONS do
+    subject(:method) do
+      described_class.find_payee_id_by_account_id(account_id)
+    end
+
+    let(:account_id) { 'ebec22d4-1905-11e8-8a4c-7b32b5a7e49f' }
+
+    it 'returns the correct account id' do
+      expect(method).to eq('57244b6e-c35e-11e8-8178-8f80c501f13b')
     end
   end
 end

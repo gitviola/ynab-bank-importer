@@ -33,8 +33,8 @@ class TransactionCreator
 
       return cash_account_id if withdrawal?(options)
 
-      internal_account_id = internal_account_id(options)
-      return internal_account_id if internal_account_id
+      account_payee_id = account_payee_id(options)
+      return account_payee_id if account_payee_id
       nil
     end
 
@@ -71,14 +71,23 @@ class TransactionCreator
       options.fetch(:is_withdrawal, nil)
     end
 
-    def internal_account_id(options)
+    def account_payee_id(options)
       result = Settings.all['accounts'].find do |account|
         payee_iban = payee_iban(options)
         account['ynab_id'] && payee_iban && account['iban'] == payee_iban
       end
 
-      return result['ynab_id'] if result
-      nil
+      return nil unless result
+      find_payee_id_by_account_id(result['ynab_id'])
+    end
+
+    def find_payee_id_by_account_id(account_id)
+      budget_id = Settings.all['ynab'].fetch('budget_id')
+      access_token = Settings.all['ynab'].fetch('access_token')
+      YNAB::API.new(access_token)
+               .accounts
+               .get_account_by_id(budget_id, account_id)
+               .data.account.transfer_payee_id
     end
 
     def flag_color(_options)
