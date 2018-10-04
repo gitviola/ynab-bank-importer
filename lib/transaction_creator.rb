@@ -40,7 +40,10 @@ class TransactionCreator
 
     def payee_name(options)
       return nil if payee_id(options)
-      options.fetch(:payee_name, nil)
+      payee = options.fetch(:payee_name, nil)
+      # The api has a limit of 50 characters for the payee field
+      payee = truncate(payee, 50)
+      payee
     end
 
     def memo(options)
