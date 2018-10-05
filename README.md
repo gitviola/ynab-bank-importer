@@ -43,6 +43,9 @@ I'm not that into hardware. It would be super awesome if someone could help maki
 
 # Thanks
 
+* [@derintendant](https://github.com/derintendant) for spotting and fixing edge cases [PR #27](https://github.com/schurig/ynab-bank-importer/pull/27) (improves error messages) and [PR #28](https://github.com/schurig/ynab-bank-importer/pull/28) (truncates the payee field if it's too long)
+* [@manuelgrabowski](https://github.com/manuelgrabowski) for implementing a fallback in the FinTS dumper [PR #26](https://github.com/schurig/ynab-bank-importer/pull/26)
+* [@markuspabst](https://github.com/markuspabst) for spotting an error in the readme [PR #11](https://github.com/schurig/ynab-bank-importer/pull/11)
+* [@wizonesolutions](https://github.com/wizonesolutions) for giving feedback on the N26 integration [PR #9](https://github.com/schurig/ynab-bank-importer/pull/9)
 * [@mkilling](https://github.com/mkilling) for writing the [FinTS ruby lib](https://github.com/playtestcloud/ruby_fints) that I'm using & helping me fixing a bug
-* [@wizonesolutions](https://github.com/wizonesolutions) for giving feedback on the N26 integration and [PR #9](https://github.com/schurig/ynab-bank-importer/pull/9)
 * you for reading this
