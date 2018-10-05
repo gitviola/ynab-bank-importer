@@ -31,7 +31,7 @@ class ErrorMessage
   end
 
   def message
-    pretty_json || @e.message
+    pretty_json || @e.detail
   end
 
   def pretty_json
