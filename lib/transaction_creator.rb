@@ -31,7 +31,9 @@ class TransactionCreator
       payee_id = options.fetch(:payee_id, nil)
       return payee_id if payee_id
 
-      return cash_account_id if withdrawal?(options)
+      if withdrawal?(options) && cash_account_id
+        return find_payee_id_by_account_id(cash_account_id)
+      end
 
       account_payee_id = account_payee_id(options)
       return account_payee_id if account_payee_id
@@ -85,6 +87,7 @@ class TransactionCreator
     end
 
     def find_payee_id_by_account_id(account_id)
+      return nil unless account_id
       budget_id = Settings.all['ynab'].fetch('budget_id')
       access_token = Settings.all['ynab'].fetch('access_token')
       YNAB::API.new(access_token)

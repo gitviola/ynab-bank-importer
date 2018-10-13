@@ -1,4 +1,6 @@
 RSpec.describe TransactionCreator do
+  VCR_OPTIONS = { match_requests_on: %i[method host path] }.freeze
+
   describe '.call' do
     subject(:call) do
       described_class.call(
@@ -50,12 +52,18 @@ RSpec.describe TransactionCreator do
     end
 
     context 'when transaction is a withdrawal?' do
+      let(:expected_account_id) { 'ebec22d4-1905-11e8-8a4c-7b32b5a7e49f' }
+
       before do
         allow(described_class).to receive(:withdrawal?).and_return(true)
+        allow(described_class).to(
+          receive(:find_payee_id_by_account_id)
+          .and_return(expected_account_id)
+        )
       end
 
-      it 'returns that payee_id' do
-        expect(method).to eq('b4fb2fd6-1905-11e8-98a1-b3e93d6cc9e2')
+      it 'returns the payee_id of the cash account' do
+        expect(method).to eq(expected_account_id)
       end
     end
 
@@ -107,7 +115,6 @@ RSpec.describe TransactionCreator do
     end
   end
 
-  VCR_OPTIONS = { match_requests_on: %i[method host path] }.freeze
   describe '.find_payee_id_by_account_id', vcr: VCR_OPTIONS do
     subject(:method) do
       described_class.find_payee_id_by_account_id(account_id)
