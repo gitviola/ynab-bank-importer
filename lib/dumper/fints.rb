@@ -22,6 +22,7 @@ class Dumper
       statement = client.get_statement(account, Date.today - 35, Date.today)
 
       statement.map { |t| to_ynab_transaction(t) }
+      exit
     end
 
     private
@@ -35,6 +36,10 @@ class Dumper
     end
 
     def payee_name(transaction)
+      puts
+      puts '############### +++ below +++ ###################'
+      puts
+      puts transaction.inspect
       parse_transaction_at(32, transaction).try(:strip)
     end
 
@@ -83,7 +88,7 @@ class Dumper
       # could will result in duplicated entries.
 
       str = parse_transaction_at(0, transaction)
-      return nil unless type
+      return nil unless str
 
       str = str.encode('iso-8859-1').force_encoding('utf-8')
       str[1..-1]
