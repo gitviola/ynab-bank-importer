@@ -82,9 +82,10 @@ class Dumper
       # change the hash returned by the `import_id` which
       # could will result in duplicated entries.
 
-      str = parse_transaction_at(0, transaction).encode('iso-8859-1')
-                                                .force_encoding('utf-8')
-      return nil unless str
+      str = parse_transaction_at(0, transaction)
+      return nil unless type
+
+      str = str.encode('iso-8859-1').force_encoding('utf-8')
       str[1..-1]
     end
 
