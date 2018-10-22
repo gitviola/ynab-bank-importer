@@ -32,14 +32,13 @@ The script also includes some additional logic like detecting internal transacti
 # Known Problems
 
 * Currently no known problems
+* Please read the notes in each Dumper _[(see Wiki)](https://github.com/schurig/ynab-bank-importer/wiki#supported-dumpers)_ to understand the limitations
 
 ____________________
 
 # Support / Contribution
 
 Support and contriubution of any kind is always welcome!!!
-
-I'm not that into hardware. It would be super awesome if someone could help making this work on Raspbian. I already tried but building the docker container fails _(Dockerfile.rpi)_. The PR related to that you can find here: [18](https://github.com/schurig/ynab-bank-importer/pull/18)
 
 # Thanks
 
