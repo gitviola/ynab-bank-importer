@@ -7,8 +7,8 @@ class Dumper
 
     def initialize(params = {})
       @ynab_id  = params.fetch('ynab_id')
-      @username = params.fetch('username')
-      @password = params.fetch('password')
+      @username = params.fetch('username').to_s
+      @password = params.fetch('password').to_s
       @iban     = params.fetch('iban')
       @endpoint = params.fetch('fints_endpoint')
       @blz      = params.fetch('fints_blz')
