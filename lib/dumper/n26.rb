@@ -88,24 +88,12 @@ class Dumper
     end
 
     def import_id(transaction)
-      data = [calculated_timestamp(transaction),
+      data = [transaction['visibleTS'],
               transaction['transactionNature'],
               transaction['amount'],
               transaction['accountId']].join
 
       Digest::MD5.hexdigest(data)
-    end
-
-    # N26 seems to have an internal timezone mismatch in their database.
-    # Transactions that are not processed yet have the `visibleTS` value
-    # in UTC but processed transactions have timezone Europe/Berlin.
-    # => This method checks if the transaction was processed or not.
-    #    If it's already processed it will just take the value, if not it will
-    #    add the current offset to make it Europe/Berlin timezone.
-    def calculated_timestamp(transaction)
-      return transaction['visibleTS'] if alread_processed?(transaction)
-      offset_to_utc = Time.now.in_time_zone('Europe/Berlin').utc_offset
-      transaction['visibleTS'] + offset_to_utc * 1000
     end
 
     # All very recent transactions with the credit card have
