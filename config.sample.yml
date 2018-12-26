@@ -17,4 +17,5 @@ accounts:
     ynab_id: # last hash in the url when you click on the account in YNAB
     username: # n26 username
     password: # n26 password
+    skip_pending_transactions: false # default: false, only imports transactions when they're processed
     set_category: false # default: false, sets the N26 category name as category

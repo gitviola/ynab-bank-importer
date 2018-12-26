@@ -17,6 +17,8 @@ class Dumper
       @password = params.fetch('password')
       @iban     = params.fetch('iban')
       @set_category = params.fetch('set_category', false)
+      @skip_pending_transactions = params.fetch('skip_pending_transactions',
+                                                false)
       @categories = {}
     end
 
@@ -28,8 +30,13 @@ class Dumper
       end
 
       client.transactions(count: 100)
-            .reject { |t| t['pending'] } # Only transactions that aren't pending
+            .select { |t| accept?(t) }
             .map { |t| to_ynab_transaction(t) }
+    end
+
+    def accept?(transaction)
+      return true unless @skip_pending_transactions
+      alread_processed?(transaction)
     end
 
     private

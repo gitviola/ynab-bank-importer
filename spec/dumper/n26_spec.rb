@@ -4,13 +4,15 @@ vcr_options = { cassette_name: 'dumper/n26',
 
 RSpec.describe Dumper::N26, vcr: vcr_options do
   subject(:object) { Dumper::N26.new(params) }
+  let(:skip_pending_transactions) { false }
 
   let(:params) do
     {
       'ynab_id' => '123466',
       'username' => 'username',
       'password' => 'password',
-      'iban' => 'DE89370400440532013000'
+      'iban' => 'DE89370400440532013000',
+      'skip_pending_transactions' => skip_pending_transactions
     }
   end
 
@@ -172,6 +174,48 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
       expect(
         object.send(:calculated_timestamp, transaction_pending)
       ).to eq(object.send(:calculated_timestamp, transaction_processed))
+    end
+  end
+
+  describe '.accept?' do
+    subject(:accept?) { object.accept?(transaction) }
+
+    context 'when skip_pending_transactions feature is disabled' do
+      context 'when the transaction is pending' do
+        let(:transaction) { transaction_pending }
+
+        it 'returns true' do
+          expect(accept?).to be_truthy
+        end
+      end
+
+      context 'when the transaction is processed' do
+        let(:transaction) { transaction_processed }
+
+        it 'returns true' do
+          expect(accept?).to be_truthy
+        end
+      end
+    end
+
+    context 'when skip_pending_transactions feature is diabled' do
+      let(:skip_pending_transactions) { true }
+
+      context 'when the transaction is pending' do
+        let(:transaction) { transaction_pending }
+
+        it 'returns false' do
+          expect(accept?).to be_falsy
+        end
+      end
+
+      context 'when the transaction is processed' do
+        let(:transaction) { transaction_processed }
+
+        it 'returns true' do
+          expect(accept?).to be_truthy
+        end
+      end
     end
   end
 end
