@@ -184,7 +184,7 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
       end
     end
 
-    context 'when skip_pending_transactions feature is diabled' do
+    context 'when skip_pending_transactions feature is disabled' do
       let(:skip_pending_transactions) { true }
 
       context 'when the transaction is pending' do

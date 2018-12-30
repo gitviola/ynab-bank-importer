@@ -36,7 +36,7 @@ class Dumper
 
     def accept?(transaction)
       return true unless @skip_pending_transactions
-      alread_processed?(transaction)
+      already_processed?(transaction)
     end
 
     private
@@ -99,7 +99,7 @@ class Dumper
     # All very recent transactions with the credit card have
     # the type value set to "AA". So we assume that this is an
     # indicator to check if a transaction has been processed or not.
-    def alread_processed?(transaction)
+    def already_processed?(transaction)
       transaction['type'] != 'AA'
     end
   end
