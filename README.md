@@ -42,6 +42,7 @@ Support and contriubution of any kind is always welcome!!!
 
 # Thanks
 
+* [@manuelgrabowski](https://github.com/manuelgrabowski), [@martinlabuschin](https://github.com/martinlabuschin) and [@peterjeschke](https://github.com/peterjeschke) for giving feedback on a new N26 dumper config flag that prevents transactions to be imported multiple times [PR #38](https://github.com/schurig/ynab-bank-importer/pull/38)
 * [@peterjeschke](https://github.com/peterjeschke) for fixing a bug that happened when the FinTS username was an integer [PR #35](https://github.com/schurig/ynab-bank-importer/pull/35)
 * [@derintendant](https://github.com/derintendant) for spotting and fixing edge cases [PR #27](https://github.com/schurig/ynab-bank-importer/pull/27) (improves error messages) and [PR #28](https://github.com/schurig/ynab-bank-importer/pull/28) (truncates the payee field if it's too long)
 * [@manuelgrabowski](https://github.com/manuelgrabowski) for implementing a fallback in the FinTS dumper [PR #26](https://github.com/schurig/ynab-bank-importer/pull/26)
