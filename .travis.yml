@@ -2,7 +2,8 @@ language: ruby
 cache: bundler
 rvm:
 - 2.4.2
-- 2.5.0
+- 2.5.3
+- 2.6.1
 env:
   - ENV=test
 before_script:
