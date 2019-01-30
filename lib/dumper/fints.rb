@@ -85,7 +85,7 @@ class Dumper
       str = parse_transaction_at(0, transaction)
       return nil unless str
 
-      str = str.encode('iso-8859-1').force_encoding('utf-8')
+      str = str.force_encoding('utf-8')
       str[1..-1]
     end
 
