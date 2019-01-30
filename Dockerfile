@@ -1,4 +1,4 @@
-FROM ruby:2.6.1
+FROM ruby:2.6
 
 # Set the locale
 RUN apt-get clean && apt-get update && apt-get install -y locales
