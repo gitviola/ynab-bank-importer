@@ -202,6 +202,19 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
           expect(accept?).to be_truthy
         end
       end
+
+      context 'when the transaction is processed ' \
+              'but a returned authorization' do
+        let(:transaction) do
+          t = transaction_processed
+          t['type'] = 'AV'
+          t
+        end
+
+        it 'returns true' do
+          expect(accept?).to be_falsy
+        end
+      end
     end
   end
 end
