@@ -5,6 +5,7 @@ docker-compose.yml
 config.yml
 config.sample.yml
 
+.git
 .cache
 .export
 last_imported
