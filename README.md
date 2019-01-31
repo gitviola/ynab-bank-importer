@@ -11,6 +11,12 @@ This is a ruby script that **pulls your transactions from your banks** and impor
 
 ---
 
+## Disclaimer
+
+**Using this tool is on your own risk.** I can **not** garantee you that this will work for you. Also I can **not** garantee that it won't up your YNAB data. I highly recommend to start with a new Budget or at least test it with a new one before you use your existing Budget.
+
+---
+
 ## Supported banks
 
 * Most German and Austrian banks _(all banks that implement the FinTS standard)_
