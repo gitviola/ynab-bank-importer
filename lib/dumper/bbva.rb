@@ -50,7 +50,9 @@ class Dumper
 
     def withdrawal?(transaction)
       text = transaction.description.downcase
-      text.include?('cajero') || text.include?('withdrawal')
+      text.include?('cajero') ||
+        text.include?('withdrawal') ||
+        text.include?('efectivo')
     end
 
     def normalize_iban(iban)
