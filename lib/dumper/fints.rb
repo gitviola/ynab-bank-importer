@@ -35,26 +35,22 @@ class Dumper
     end
 
     def payee_name(transaction)
-      parse_transaction_at(32, transaction).try(:strip)
+      transaction.name.try(:strip)
     end
 
     def payee_iban(transaction)
-      parse_transaction_at(31, transaction)
+      transaction.iban
     end
 
     def memo(transaction)
-      parse_transaction_at(20, transaction).try(:strip)
+      [
+        transaction.description,
+        transaction.information
+      ].compact.join(' / ').try(:strip)
     end
 
     def amount(transaction)
-      amount =
-        if transaction.funds_code == 'D'
-          "-#{transaction.amount}"
-        else
-          transaction.amount
-        end
-
-      (amount.to_f * 1000).to_i
+      (transaction.amount * transaction.sign * 1000).to_i
     end
 
     def withdrawal?(transaction)
@@ -65,39 +61,7 @@ class Dumper
     end
 
     def import_id(transaction)
-      data = [transaction_type(transaction),
-              transaction.date,
-              transaction.amount,
-              transaction.funds_code,
-              transaction.reference.try(:downcase),
-              payee_iban(transaction),
-              payee_name(transaction).try(:downcase),
-              @iban].join
-
-      Digest::MD5.hexdigest(data)
-    end
-
-    def transaction_type(transaction)
-      # Changing the result of this method will
-      # change the hash returned by the `import_id` which
-      # could will result in duplicated entries.
-
-      str = parse_transaction_at(0, transaction)
-      return nil unless str
-
-      str = str.force_encoding('utf-8')
-      str[1..-1]
-    end
-
-    def parse_transaction_at(position, transaction)
-      # I don't know who invented this structure but I hope
-      # the responsible people know how inconvenient it is.
-
-      seperator = transaction.details.seperator
-      array = transaction.details.source.split("#{seperator}#{position}")
-      return nil if array.size < 2
-
-      array.last.split(seperator).first
+      Digest::MD5.hexdigest(transaction.source)
     end
   end
 end
