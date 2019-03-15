@@ -3,22 +3,27 @@ class Dumper
   # and implements methods that convert the response to meaningful data.
   class DeutscheBank < Fints
     def payee_name(transaction)
-      # puts "transaction"
-      #   puts transaction.inspect
-      #   puts "transaction.json"
-      #   puts transaction.to_json
-      #   puts "split"
-      #   puts transaction.sepa["SVWZ"].split('//')[0]
-      if super == "DEUTSCHE BANK" # This is either a interest statement or more likely a Payment with Apple Pay
-        puts transaction.sepa["SVWZ"].split('//')[0]
-        transaction.sepa["SVWZ"].split('//')[0]
+      if transaction.sepa["SVWZ"].nil?
+        puts transaction.inspect
+        puts transaction.to_json
+      end
+      if super == "DEUTSCHE BANK" || super == "" # This is either a interest statement or more likely a Payment with Apple Pay
+        if transaction.sepa.empty?
+          puts transaction.transaction_code
+          transaction.transaction_code
+        else
+          transaction.sepa["SVWZ"].split('//')[0]
+        end
       else
-        puts super
         super
       end
     end
     def memo(transaction)
-      transaction.sepa["SVWZ"]
+      if transaction.sepa.empty?
+        transaction.information
+      else
+        transaction.sepa["SVWZ"]
+      end
     end
   end
 end

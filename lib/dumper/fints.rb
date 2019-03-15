@@ -19,7 +19,7 @@ class Dumper
       client = FinTS::PinTanClient.new(@blz, @username, @password, @endpoint)
 
       account = client.get_sepa_accounts.find { |a| a[:iban] == @iban }
-      statement = client.get_statement(account, Date.today - 33, Date.today)
+      statement = client.get_statement(account, Date.today - 10, Date.today)
 
       statement.map { |t| to_ynab_transaction(t) }
     end
