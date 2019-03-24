@@ -67,7 +67,8 @@ class Dumper
     # Patches
 
     # taken from https://github.com/railslove/cmxl/blob/master/lib/cmxl/field.rb
-    # and modified so that it changed Feb 29th to Feb 28th on non-leap-years.
+    # and modified so that it takes the last day of the month if the provided day
+    # doesn't exist in that month.
     # See issue: https://github.com/schurig/ynab-bank-importer/issues/52
     DATE = /(?<year>\d{0,2})(?<month>\d{2})(?<day>\d{2})/
     def to_date(date, year = nil)
@@ -76,14 +77,15 @@ class Dumper
         month = match['month']
         day = match['day']
 
-        day = '28' if !Date.leap?(year.to_i) && match['month'] == '02' && match['day'] == '29'
-
-        Date.new(year.to_i, month.to_i, day.to_i)
+        begin
+          Date.new(year.to_i, month.to_i, day.to_i)
+        rescue ArgumentError
+          # Take the last day of that month
+          Date.civil(year.to_i, month.to_i, -1)
+        end
       else
         date
       end
-    rescue ArgumentError # let's simply ignore invalid dates
-      date
     end
 
     def entry_date(transaction)
