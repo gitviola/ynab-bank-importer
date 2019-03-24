@@ -31,7 +31,7 @@ class Dumper
     end
 
     def date(transaction)
-      transaction.entry_date || transaction.date
+      entry_date(transaction) || to_date(transaction['date'])
     end
 
     def payee_name(transaction)
@@ -62,6 +62,42 @@ class Dumper
 
     def import_id(transaction)
       Digest::MD5.hexdigest(transaction.source)
+    end
+
+    # Patches
+
+    # taken from https://github.com/railslove/cmxl/blob/master/lib/cmxl/field.rb
+    # and modified so that it changed Feb 29th to Feb 28th on non-leap-years.
+    # See issue: https://github.com/schurig/ynab-bank-importer/issues/52
+    DATE = /(?<year>\d{0,2})(?<month>\d{2})(?<day>\d{2})/
+    def to_date(date, year = nil)
+      if match = date.to_s.match(DATE)
+        year ||= "20#{match['year'] || Date.today.strftime('%y')}"
+        month = match['month']
+        day = match['day']
+
+        day = '28' if !Date.leap?(year.to_i) && match['month'] == '02' && match['day'] == '29'
+
+        Date.new(year.to_i, month.to_i, day.to_i)
+      else
+        date
+      end
+    rescue ArgumentError # let's simply ignore invalid dates
+      date
+    end
+
+    def entry_date(transaction)
+      data = transaction.data
+      date = to_date(data['date'])
+
+      return unless transaction.data['entry_date'] && date
+
+      entry_date_with_date_year = to_date(data['entry_date'], date.year)
+      if date.month == 1 && date.month < entry_date_with_date_year.month
+        to_date(data['entry_date'], date.year - 1)
+      else
+        to_date(data['entry_date'], date.year)
+      end
     end
   end
 end
