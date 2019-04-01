@@ -31,6 +31,10 @@ class Dumper
     end
 
     def date(transaction)
+      transaction.entry_date || transaction.date
+    rescue NoMethodError
+      # https://github.com/schurig/ynab-bank-importer/issues/52
+      # Some banks think Feb 29 and 30 exist in non-leap years.
       entry_date(transaction) || to_date(transaction['date'])
     end
 
