@@ -32,6 +32,10 @@ class Dumper
 
     def date(transaction)
       transaction.entry_date || transaction.date
+    rescue NoMethodError
+      # https://github.com/schurig/ynab-bank-importer/issues/52
+      # Some banks think Feb 29 and 30 exist in non-leap years.
+      entry_date(transaction) || to_date(transaction['date'])
     end
 
     def payee_name(transaction)
@@ -62,6 +66,44 @@ class Dumper
 
     def import_id(transaction)
       Digest::MD5.hexdigest(transaction.source)
+    end
+
+    # Patches
+
+    # taken from https://github.com/railslove/cmxl/blob/master/lib/cmxl/field.rb
+    # and modified so that it takes the last day of the month if the provided day
+    # doesn't exist in that month.
+    # See issue: https://github.com/schurig/ynab-bank-importer/issues/52
+    DATE = /(?<year>\d{0,2})(?<month>\d{2})(?<day>\d{2})/
+    def to_date(date, year = nil)
+      if match = date.to_s.match(DATE)
+        year ||= "20#{match['year'] || Date.today.strftime('%y')}"
+        month = match['month']
+        day = match['day']
+
+        begin
+          Date.new(year.to_i, month.to_i, day.to_i)
+        rescue ArgumentError
+          # Take the last day of that month
+          Date.civil(year.to_i, month.to_i, -1)
+        end
+      else
+        date
+      end
+    end
+
+    def entry_date(transaction)
+      data = transaction.data
+      date = to_date(data['date'])
+
+      return unless transaction.data['entry_date'] && date
+
+      entry_date_with_date_year = to_date(data['entry_date'], date.year)
+      if date.month == 1 && date.month < entry_date_with_date_year.month
+        to_date(data['entry_date'], date.year - 1)
+      else
+        to_date(data['entry_date'], date.year)
+      end
     end
   end
 end
