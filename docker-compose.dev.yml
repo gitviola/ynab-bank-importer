@@ -4,5 +4,5 @@ services:
     build:
       context: .
     volumes:
-      - ./config.yml:/usr/app/config.yml
+      - ./:/usr/app/
     command: "ruby /usr/app/run.rb"
