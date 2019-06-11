@@ -165,6 +165,7 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
 
   describe '.accept?' do
     subject(:accept?) { object.accept?(transaction) }
+    subject(:cleared?) { object.send(:cleared?, transaction) }
 
     context 'when skip_pending_transactions feature is disabled' do
       context 'when the transaction is pending' do
@@ -172,6 +173,10 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
 
         it 'returns true' do
           expect(accept?).to be_truthy
+        end
+
+        it 'the transaction is not cleared' do
+          expect(cleared?).to be_falsy
         end
       end
 
@@ -181,10 +186,14 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
         it 'returns true' do
           expect(accept?).to be_truthy
         end
+
+        it 'the transaction is cleared' do
+          expect(cleared?).to be_truthy
+        end
       end
     end
 
-    context 'when skip_pending_transactions feature is disabled' do
+    context 'when skip_pending_transactions feature is enabled' do
       let(:skip_pending_transactions) { true }
 
       context 'when the transaction is pending' do
@@ -193,6 +202,10 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
         it 'returns false' do
           expect(accept?).to be_falsy
         end
+
+        it 'the transaction is not cleared' do
+          expect(cleared?).to be_falsy
+        end
       end
 
       context 'when the transaction is processed' do
@@ -200,6 +213,10 @@ RSpec.describe Dumper::N26, vcr: vcr_options do
 
         it 'returns true' do
           expect(accept?).to be_truthy
+        end
+
+        it 'the transaction is cleared' do
+          expect(cleared?).to be_truthy
         end
       end
     end

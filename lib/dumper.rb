@@ -27,7 +27,8 @@ class Dumper
       memo: memo(transaction),
       amount: amount(transaction),
       is_withdrawal: withdrawal?(transaction),
-      import_id: import_id(transaction)
+      import_id: import_id(transaction),
+      is_cleared: cleared?(transaction)
     )
   end
   # rubocop:enable Metrics/MethodLength
@@ -42,5 +43,9 @@ class Dumper
 
   def normalize_iban(iban)
     iban.delete(' ')
+  end
+
+  def cleared?(transaction)
+    date(transaction) < Time.now
   end
 end
