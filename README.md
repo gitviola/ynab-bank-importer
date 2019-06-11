@@ -48,6 +48,7 @@ Support and contriubution of any kind is always welcome!!!
 
 # Thanks
 
+* [@dequis](https://github.com/dequis) for preventing the script from failing in the future [PR #70](https://github.com/schurig/ynab-bank-importer/pull/70) and keeping an eye on the development experience [PR #69](https://github.com/schurig/ynab-bank-importer/pull/69)
 * [@moay](https://github.com/moay), [@yuvke](https://github.com/yuvke), [@BluetriX](https://github.com/BluetriX) for the help on debugging an error with not existing dates [Issue #52](https://github.com/schurig/ynab-bank-importer/issues/52)
 * [@mathijshoogland](https://github.com/mathijshoogland) for updating the dependencies [PR #49](https://github.com/schurig/ynab-bank-importer/pull/49)
 * [@manuelgrabowski](https://github.com/manuelgrabowski), [@martinlabuschin](https://github.com/martinlabuschin) and [@peterjeschke](https://github.com/peterjeschke) for giving feedback on a new N26 dumper config flag that prevents transactions to be imported multiple times [PR #38](https://github.com/schurig/ynab-bank-importer/pull/38)
