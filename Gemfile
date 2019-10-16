@@ -17,6 +17,11 @@ gem 'activesupport'
 gem 'base32'
 gem 'colorize'
 
+# Dumper: SaltEdge
+gem 'rest-client'
+gem 'json'
+gem 'pry'
+
 group :development do
   gem 'rubocop', '~> 0.52.1', require: false
   gem 'rubocop-rspec'

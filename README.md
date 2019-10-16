@@ -22,6 +22,7 @@ This is a ruby script that **pulls your transactions from your banks** and impor
 * Most German and Austrian banks _(all banks that implement the FinTS standard)_
 * BBVA Spain _(private accounts only)_
 * N26
+* PSD2 Banks via SaltEdge API (tested with German bank: DKB)
 
 **💡 Check out the [configuration guides for the dumpers and banks](https://github.com/schurig/ynab-bank-importer/wiki#supported-dumpers)**.
 
@@ -37,8 +38,6 @@ The script also includes some additional logic like detecting internal transacti
 
 # Known Problems
 
-* [Most banks can't be used anymore because of the PSD2](https://github.com/schurig/ynab-bank-importer/issues/74)
-> We're investigating in alternative approaches to gain access to the latest transactions..
 * Please read the notes in each Dumper _[(see Wiki)](https://github.com/schurig/ynab-bank-importer/wiki#supported-dumpers)_ to understand the limitations
 
 ____________________
