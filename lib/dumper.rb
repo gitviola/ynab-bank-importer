@@ -7,6 +7,8 @@ class Dumper
       Dumper::Bbva
     when :n26
       Dumper::N26
+    when :saltedge
+      Dumper::SaltEdge
     when :fints
       Dumper::Fints
     else
@@ -16,6 +18,7 @@ class Dumper
 
   # rubocop:disable Metrics/MethodLength
   def to_ynab_transaction(transaction)
+    #return nil if date(transaction) < Date.parse('2019-09-05')
     return nil if date(transaction).nil? || date(transaction) > Date.today
     ::TransactionCreator.call(
       account_id: account_id,
