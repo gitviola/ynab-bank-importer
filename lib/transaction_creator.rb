@@ -5,7 +5,7 @@ require 'ynab'
 class TransactionCreator
   attr_accessor :account_id, :date, :amount, :payee_name, :payee_id,
                 :category_name, :category_id, :memo,
-                :import_id, :is_withdrawal
+                :import_id, :is_withdrawal, :is_cleared
 
   class <<self
     require 'ynab/models/save_transaction'
@@ -22,7 +22,7 @@ class TransactionCreator
         memo: memo(options),
         import_id: options.fetch(:import_id),
         flag_color: flag_color(options),
-        cleared: 'cleared' # TODO: shouldn't be cleared if date is in the future
+        cleared: cleared(options)
       )
     end
     # rubocop:enable Metrics/MethodLength
@@ -74,6 +74,10 @@ class TransactionCreator
 
     def withdrawal?(options)
       options.fetch(:is_withdrawal, nil)
+    end
+
+    def cleared(options)
+      options.fetch(:is_cleared, true) ? 'cleared' : 'uncleared'
     end
 
     def account_payee_id(options)

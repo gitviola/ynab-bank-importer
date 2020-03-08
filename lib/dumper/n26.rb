@@ -87,6 +87,10 @@ class Dumper
       WITHDRAWAL_CATEGORIES.include?(transaction['category'])
     end
 
+    def cleared?(transaction)
+      already_processed?(transaction)
+    end
+
     def import_id(transaction)
       data = [transaction['visibleTS'],
               transaction['transactionNature'],
