@@ -36,7 +36,13 @@ class Dumper
 
     def accept?(transaction)
       return true unless @skip_pending_transactions
-      already_processed?(transaction)
+
+      # Card authorizations (if a company reserves some small amount)
+      # to check if your card is valid are the same type
+      # as processing transactions. So if we ignore those, we need to ignore
+      # the type for transactions where you get that authorization-money back.
+      already_processed?(transaction) &&
+        !returned_authorization?(transaction)
     end
 
     private
@@ -101,6 +107,12 @@ class Dumper
     # indicator to check if a transaction has been processed or not.
     def already_processed?(transaction)
       transaction['type'] != 'AA'
+    end
+
+    # This can be true if a company reserved some small money
+    # that they will give you back.
+    def returned_authorization?(transaction)
+      transaction['type'] == 'AV'
     end
   end
 end
