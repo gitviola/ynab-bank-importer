@@ -19,3 +19,6 @@ accounts:
     password: # n26 password
     skip_pending_transactions: false # default: false, only imports transactions when they're processed
     set_category: false # default: false, sets the N26 category name as category
+replacements:
+  - payee: "NETFLIX INTERNATIONAL B.V."
+    replacement: "Netflix"

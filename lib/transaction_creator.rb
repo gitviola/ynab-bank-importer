@@ -28,6 +28,7 @@ class TransactionCreator
     # rubocop:enable Metrics/MethodLength
 
     def payee_id(options)
+      return nil # ignore for now and let ynab calc that
       payee_id = options.fetch(:payee_id, nil)
       return payee_id if payee_id
 
@@ -43,9 +44,19 @@ class TransactionCreator
     def payee_name(options)
       return nil if payee_id(options)
       payee = options.fetch(:payee_name, nil)
+      # try to replace
+      payee = replaceFromConfig(payee)
       # The api has a limit of 50 characters for the payee field
       payee = truncate(payee, 50)
       payee
+    end
+
+    def replaceFromConfig(payee)
+      result = Settings.all['replacements'].find do |replacement|
+        replacement['payee'] == payee
+      end
+      return payee if result.nil? || result == ""
+      result['replacement']
     end
 
     def memo(options)
